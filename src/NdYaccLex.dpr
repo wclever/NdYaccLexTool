@@ -2,13 +2,16 @@ program NdYaccLex;
 
 uses
   Vcl.Forms,
-  Main in 'Main.pas' {Form1};
+  Main in 'Main.pas' {MainForm},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  TStyleManager.TrySetStyle('Sapphire Kamri');
+  Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.
