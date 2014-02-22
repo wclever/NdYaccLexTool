@@ -59,7 +59,7 @@ object MainForm: TMainForm
   end
   object OutputProjectDirectoryBitBtn: TBitBtn
     Left = 464
-    Top = 93
+    Top = 125
     Width = 161
     Height = 25
     Caption = 'Choose OutputProjectDirectory'
@@ -68,7 +68,7 @@ object MainForm: TMainForm
   end
   object OutputProjectDirectoryEdit: TEdit
     Left = 8
-    Top = 95
+    Top = 127
     Width = 450
     Height = 21
     TabOrder = 3
@@ -82,16 +82,16 @@ object MainForm: TMainForm
     TabOrder = 4
     OnClick = EnableNDYaccLexDirectoryControlCheckBoxClick
   end
-  object yaccFile: TEdit
+  object yaccFileEdit: TEdit
     Left = 8
-    Top = 122
+    Top = 154
     Width = 450
     Height = 21
     TabOrder = 5
   end
-  object lexFile: TEdit
+  object lexFileEdit: TEdit
     Left = 8
-    Top = 149
+    Top = 181
     Width = 450
     Height = 21
     TabOrder = 6
@@ -124,13 +124,49 @@ object MainForm: TMainForm
   end
   object lexlibLocationBitBtn: TBitBtn
     Left = 464
-    Top = 64
+    Top = 61
     Width = 161
     Height = 25
     Caption = 'Choose lexlibLocation'
     Enabled = False
     TabOrder = 10
     OnClick = lexlibLocationBitBtnClick
+  end
+  object yaccFileBitBtn: TBitBtn
+    Left = 464
+    Top = 152
+    Width = 161
+    Height = 25
+    Caption = 'Choose Yacc-file'
+    TabOrder = 11
+    OnClick = yaccFileBitBtnClick
+  end
+  object lexFileBitBtn: TBitBtn
+    Left = 464
+    Top = 179
+    Width = 161
+    Height = 25
+    Caption = 'Choose LexFile'
+    TabOrder = 12
+    OnClick = lexFileBitBtnClick
+  end
+  object yacclibLocationBitBtn: TBitBtn
+    Left = 464
+    Top = 90
+    Width = 161
+    Height = 25
+    Caption = 'Choose yacclibLocation'
+    Enabled = False
+    TabOrder = 13
+    OnClick = yacclibLocationBitBtnClick
+  end
+  object yacclibLocationEdit: TEdit
+    Left = 8
+    Top = 92
+    Width = 450
+    Height = 21
+    Enabled = False
+    TabOrder = 14
   end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
