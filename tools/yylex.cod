@@ -1,6 +1,6 @@
 %%
 
-function TLexer.parse() : integer;
+function TExprLexer.parse() : integer;
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)

@@ -11,7 +11,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  TStyleManager.TrySetStyle('Sapphire Kamri');
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
 end.

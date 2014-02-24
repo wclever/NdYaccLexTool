@@ -148,7 +148,7 @@ end;
 function TMainForm.checkDirectory(d:String):Integer;
 begin
   addLine('checking directory ... '+d);
-  if DirectoryExists(d) then addToLine(': OK')
+  if System.SysUtils.DirectoryExists(d) then addToLine(': OK')
   else
   begin
      addToLine(': Failed!');
@@ -200,7 +200,10 @@ begin
       hStdError := StdOutPipeWrite;
     end;
     WorkDir := Work;
-    Handle := CreateProcess(nil, PChar('cmd.exe /C ' + CommandLine),
+    OutputMemo.Lines.Add('');
+    OutputMemo.Lines.Add(CommandLine);
+
+    Handle := CreateProcess(nil, PChar( CommandLine),
                             nil, nil, True, 0, nil,
                             PChar(WorkDir), SI, PI);
     CloseHandle(StdOutPipeWrite);
@@ -265,7 +268,7 @@ begin
   FileCopy(lexlibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(lexlibLocationEdit.Text));
   FileCopy(yacclibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(yacclibLocationEdit.Text));
 
-  if yaccFileEdit.Text='' then
+  if (yaccFileEdit.Text='') or (yaccFileEdit.Text=NDYaccLexDirectoryEdit.Text+'\default.y') then
   begin
     FileCopy(NDYaccLexDirectoryEdit.Text+'\default.y', OutputProjectDirectoryEdit.Text+'\expr.y');
     yaccFileEdit.Text := OutputProjectDirectoryEdit.Text+'\expr.y';
@@ -283,8 +286,6 @@ begin
 
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
-  OutputMemo.Lines.Add('executing: ' + 'ndyacc.exe'+
-    ndyaccParameter+yaccFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\expr.pas');
   OutputMemo.Lines.Add('');
 
   ChDir(OutputProjectDirectoryEdit.Text);
@@ -297,8 +298,6 @@ begin
   buffer.Clear;
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
-  OutputMemo.Lines.Add('executing '+'ndlex.exe'+
-  ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
   OutputMemo.Lines.Add('');
   buffer.Text := GetDosOutput(NDYaccLexDirectoryEdit.Text+'\ndlex.exe'+
   ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
