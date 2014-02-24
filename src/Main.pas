@@ -27,6 +27,8 @@ type
     CreateBitBtn: TBitBtn;
     OutputMemo: TMemo;
     DefaultBitBtn: TBitBtn;
+    debugInfoCheckBox: TCheckBox;
+    optimizeCheckBox: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -38,15 +40,19 @@ type
     procedure yacclibLocationBitBtnClick(Sender: TObject);
     procedure CreateBitBtnClick(Sender: TObject);
     procedure DefaultBitBtnClick(Sender: TObject);
+    procedure debugInfoCheckBoxClick(Sender: TObject);
+    procedure optimizeCheckBoxClick(Sender: TObject);
   private
     lastLine:String;
     lastLineNumber : Integer;
     function readSettingsIniFile(ident : String):String;
-    procedure writeSettingsIniFile(ident: String; directory : String);
+    procedure writeSettingsIniFile(ident: String; value : String);
     procedure addLine(s: String);
     procedure addToLine(s: String);
     function checkDirectory(d : String):Integer;
     function checkFile(d : String):Integer;
+    function GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;
+    procedure FileCopy(source : String; dest : String);
     { Private declarations }
   public
     { Public declarations }
@@ -83,6 +89,15 @@ begin
      writeSettingsIniFile('NDYaccLexExecutableDirectory', directory);
      NDYaccLexDirectoryEdit.Text := directory;
   end;
+end;
+
+procedure TMainForm.optimizeCheckBoxClick(Sender: TObject);
+var
+  iniFile : TIniFile;
+begin
+  iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
+  iniFile.WriteBool('Settings','optimize',debugInfoCheckBox.Checked);
+  iniFile.Free;
 end;
 
 procedure TMainForm.yaccFileBitBtnClick(Sender: TObject);
@@ -154,18 +169,150 @@ begin
   exit(0);
 end;
 
+function TMainForm.GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;
+var
+  SA: TSecurityAttributes;
+  SI: TStartupInfo;
+  PI: TProcessInformation;
+  StdOutPipeRead, StdOutPipeWrite: THandle;
+  WasOK: Boolean;
+  Buffer: array[0..255] of AnsiChar;
+  BytesRead: Cardinal;
+  WorkDir: string;
+  Handle: Boolean;
+begin
+  Result := '';
+  with SA do begin
+    nLength := SizeOf(SA);
+    bInheritHandle := True;
+    lpSecurityDescriptor := nil;
+  end;
+  CreatePipe(StdOutPipeRead, StdOutPipeWrite, @SA, 0);
+  try
+    with SI do
+    begin
+      FillChar(SI, SizeOf(SI), 0);
+      cb := SizeOf(SI);
+      dwFlags := STARTF_USESHOWWINDOW or STARTF_USESTDHANDLES;
+      wShowWindow := SW_HIDE;
+      hStdInput := GetStdHandle(STD_INPUT_HANDLE); // don't redirect stdin
+      hStdOutput := StdOutPipeWrite;
+      hStdError := StdOutPipeWrite;
+    end;
+    WorkDir := Work;
+    Handle := CreateProcess(nil, PChar('cmd.exe /C ' + CommandLine),
+                            nil, nil, True, 0, nil,
+                            PChar(WorkDir), SI, PI);
+    CloseHandle(StdOutPipeWrite);
+    if Handle then
+      try
+        repeat
+          WasOK := ReadFile(StdOutPipeRead, Buffer, 255, BytesRead, nil);
+          if BytesRead > 0 then
+          begin
+            Buffer[BytesRead] := #0;
+            Result := Result + Buffer;
+          end;
+        until not WasOK or (BytesRead = 0);
+        WaitForSingleObject(PI.hProcess, INFINITE);
+      finally
+        CloseHandle(PI.hThread);
+        CloseHandle(PI.hProcess);
+      end;
+  finally
+    CloseHandle(StdOutPipeRead);
+  end;
+end;
+
+procedure TMainForm.FileCopy(source : String; dest : String);
+begin
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('copy '+source);
+  OutputMemo.Lines.Add('to '+dest);
+  CopyFile(PChar(source), PChar(dest), False);
+end;
+
 procedure TMainForm.CreateBitBtnClick(Sender: TObject);
+var
+  buffer : TStringList;
+  ndyaccParameter : String;
+  ndlexParameter : String;
 begin
   OutputMemo.Clear;
   //check if all needed files exist
   if checkDirectory(NDYaccLexDirectoryEdit.Text)=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\default.y')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\test.dpr')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.pas')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndlex.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\yylex.cod')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\yyparse.cod')=1 then exit;
+  if checkFile(lexlibLocationEdit.Text)=1 then exit;
+  if checkFile(yacclibLocationEdit.Text)=1 then exit;
+  if checkDirectory(OutputProjectDirectoryEdit.Text)=1 then exit;
+  if checkFile(uStreamLexerLocationEdit.Text)=1 then exit;
+  if checkFile(lexFileEdit.Text)=1 then exit;
+
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('copying projectfiles');
+  OutputMemo.Lines.Add('');
+  FileCopy(NDYaccLexDirectoryEdit.Text+'\test.dpr', OutputProjectDirectoryEdit.Text+'\test.dpr');
+  FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm', OutputProjectDirectoryEdit.Text+'\frmTest.dfm');
+  FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.pas', OutputProjectDirectoryEdit.Text+'\frmTest.pas');
+  FileCopy(lexlibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(lexlibLocationEdit.Text));
+  FileCopy(yacclibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(yacclibLocationEdit.Text));
+
+  if yaccFileEdit.Text='' then
+  begin
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\default.y', OutputProjectDirectoryEdit.Text+'\expr.y');
+    yaccFileEdit.Text := OutputProjectDirectoryEdit.Text+'\expr.y';
+    writeSettingsIniFile('yaccFile', yaccFileEdit.Text);
+  end;
+
+  if checkFile(yaccFileEdit.Text)=1 then exit;
+
+  FileCopy(uStreamLexerLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(uStreamLexerLocationEdit.Text));
+
+  if debugInfoCheckbox.Checked then  ndyaccParameter := ' -v -d '
+  else  ndyaccParameter := ' -v ';
+  if optimizeCheckbox.Checked then  ndlexParameter := ' -v -o '
+  else  ndlexParameter := ' -v ';
+
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('executing: ' + 'ndyacc.exe'+
+    ndyaccParameter+yaccFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\expr.pas');
+  OutputMemo.Lines.Add('');
+
+  ChDir(OutputProjectDirectoryEdit.Text);
+  buffer := TStringList.Create();
+  buffer.Text := GetDosOutput(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe'+
+  ndyaccParameter+yaccFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\expr.pas');
+  OutPutMemo.Lines.AddStrings(buffer);
+  ChDir(OutputProjectDirectoryEdit.Text);
+
+  buffer.Clear;
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('executing '+'ndlex.exe'+
+  ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
+  OutputMemo.Lines.Add('');
+  buffer.Text := GetDosOutput(NDYaccLexDirectoryEdit.Text+'\ndlex.exe'+
+  ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
+  OutPutMemo.Lines.AddStrings(buffer);
+  buffer.Free;
+end;
+
+procedure TMainForm.debugInfoCheckBoxClick(Sender: TObject);
+var
+  iniFile : TIniFile;
+begin
+  iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
+  iniFile.WriteBool('Settings','debugInfo',debugInfoCheckBox.Checked);
+  iniFile.Free;
 end;
 
 procedure TMainForm.DefaultBitBtnClick(Sender: TObject);
@@ -185,7 +332,6 @@ begin
    OutputMemo.Lines[lastLineNumber] := lastLine + s;
 end;
 
-
 procedure TMainForm.EnableNDYaccLexDirectoryControlCheckBoxClick(Sender: TObject);
 begin
   NDYaccLexDirectoryEdit.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
@@ -201,6 +347,7 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   fileName : String;
+  iniFile : TIniFile;
 begin
   NDYaccLexDirectoryEdit.Text := readSettingsIniFile('NDYaccLexExecutableDirectory');
   OutputProjectDirectoryEdit.Text := readSettingsIniFile('OutputProjectDirectory');
@@ -219,6 +366,10 @@ begin
   fileName := readSettingsIniFile('lexFile');
   if fileName <> '' then
     lexFileEdit.Text := fileName;
+  iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
+  debugInfoCheckbox.Checked := iniFile.ReadBool('Settings','debugInfo',false);
+  optimizeCheckBox.Checked := iniFile.ReadBool('Settings','optimize',false);
+  iniFile.Free;
 end;
 
 procedure TMainForm.lexlibLocationBitBtnClick(Sender: TObject);
@@ -260,12 +411,12 @@ begin
   end;
 end;
 
-procedure TMainForm.writeSettingsIniFile(ident: String; directory: string);
+procedure TMainForm.writeSettingsIniFile(ident: String; value: string);
 var
   iniFile : TIniFile;
 begin
   iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
-  iniFile.WriteString('Settings',ident, directory);
+  iniFile.WriteString('Settings',ident, value);
   iniFile.Free;
 end;
 

@@ -169,8 +169,8 @@ object MainForm: TMainForm
     TabOrder = 14
   end
   object CreateBitBtn: TBitBtn
-    Left = 464
-    Top = 252
+    Left = 8
+    Top = 246
     Width = 161
     Height = 25
     Caption = 'Create Delphi Test Project'
@@ -179,9 +179,9 @@ object MainForm: TMainForm
   end
   object OutputMemo: TMemo
     Left = 8
-    Top = 254
-    Width = 450
-    Height = 248
+    Top = 283
+    Width = 689
+    Height = 219
     ScrollBars = ssBoth
     TabOrder = 16
   end
@@ -194,10 +194,28 @@ object MainForm: TMainForm
     TabOrder = 17
     OnClick = DefaultBitBtnClick
   end
+  object debugInfoCheckBox: TCheckBox
+    Left = 184
+    Top = 250
+    Width = 113
+    Height = 17
+    Caption = 'debug info ndyacc'
+    TabOrder = 18
+    OnClick = debugInfoCheckBoxClick
+  end
+  object optimizeCheckBox: TCheckBox
+    Left = 320
+    Top = 250
+    Width = 97
+    Height = 17
+    Caption = 'optimize ndlex'
+    TabOrder = 19
+    OnClick = optimizeCheckBoxClick
+  end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
     Title = 'NDYaccLex Directory'
-    Left = 464
-    Top = 280
+    Left = 504
+    Top = 288
   end
 end
