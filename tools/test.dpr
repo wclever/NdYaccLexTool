@@ -11,7 +11,7 @@ uses
   Vcl.Forms,
   {$ENDIF}
   frmTest in 'frmTest.pas' {Form1},
-  expr in 'generated\expr.pas',
+  expr in 'expr.pas',
   uStreamLexer in 'uStreamLexer.pas';
 
 {$R *.res}
