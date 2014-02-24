@@ -26,6 +26,7 @@ type
     yacclibLocationEdit: TEdit;
     CreateBitBtn: TBitBtn;
     OutputMemo: TMemo;
+    DefaultBitBtn: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -36,6 +37,7 @@ type
     procedure lexFileBitBtnClick(Sender: TObject);
     procedure yacclibLocationBitBtnClick(Sender: TObject);
     procedure CreateBitBtnClick(Sender: TObject);
+    procedure DefaultBitBtnClick(Sender: TObject);
   private
     lastLine:String;
     lastLineNumber : Integer;
@@ -164,6 +166,11 @@ begin
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\yylex.cod')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\yyparse.cod')=1 then exit;
+end;
+
+procedure TMainForm.DefaultBitBtnClick(Sender: TObject);
+begin
+  yaccFileEdit.Text :=  NDYaccLexDirectoryEdit.Text+'\default.y';
 end;
 
 procedure  TMainForm.addLine(s: String);

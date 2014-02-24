@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 0
   Caption = 'ROSA NDYaccLexTool'
   ClientHeight = 504
-  ClientWidth = 656
+  ClientWidth = 713
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -184,6 +184,15 @@ object MainForm: TMainForm
     Height = 248
     ScrollBars = ssBoth
     TabOrder = 16
+  end
+  object DefaultBitBtn: TBitBtn
+    Left = 632
+    Top = 184
+    Width = 75
+    Height = 25
+    Caption = 'Default'
+    TabOrder = 17
+    OnClick = DefaultBitBtnClick
   end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
