@@ -2,8 +2,8 @@ object MainForm: TMainForm
   Left = 0
   Top = 0
   Caption = 'ROSA NDYaccLexTool'
-  ClientHeight = 334
-  ClientWidth = 864
+  ClientHeight = 504
+  ClientWidth = 656
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -41,7 +41,7 @@ object MainForm: TMainForm
   TextHeight = 13
   object NDYaccLexDirectoryBitBtn: TBitBtn
     Left = 464
-    Top = 8
+    Top = 38
     Width = 161
     Height = 25
     Caption = 'Choose NDYaccLexDirectory'
@@ -51,7 +51,7 @@ object MainForm: TMainForm
   end
   object NDYaccLexDirectoryEdit: TEdit
     Left = 8
-    Top = 10
+    Top = 40
     Width = 450
     Height = 21
     Enabled = False
@@ -59,7 +59,7 @@ object MainForm: TMainForm
   end
   object OutputProjectDirectoryBitBtn: TBitBtn
     Left = 464
-    Top = 125
+    Top = 155
     Width = 161
     Height = 25
     Caption = 'Choose OutputProjectDirectory'
@@ -68,14 +68,14 @@ object MainForm: TMainForm
   end
   object OutputProjectDirectoryEdit: TEdit
     Left = 8
-    Top = 127
+    Top = 156
     Width = 450
     Height = 21
     TabOrder = 3
   end
   object EnableNDYaccLexDirectoryControlCheckBox: TCheckBox
-    Left = 631
-    Top = 12
+    Left = 464
+    Top = 15
     Width = 200
     Height = 17
     Caption = 'Enable NDYaccLexDirectoryControl'
@@ -84,21 +84,21 @@ object MainForm: TMainForm
   end
   object yaccFileEdit: TEdit
     Left = 8
-    Top = 154
+    Top = 183
     Width = 450
     Height = 21
     TabOrder = 5
   end
   object lexFileEdit: TEdit
     Left = 8
-    Top = 181
+    Top = 210
     Width = 450
     Height = 21
     TabOrder = 6
   end
   object uStreamLexerLocationEdit: TEdit
     Left = 8
-    Top = 37
+    Top = 66
     Width = 450
     Height = 21
     Enabled = False
@@ -106,7 +106,7 @@ object MainForm: TMainForm
   end
   object lexlibLocationEdit: TEdit
     Left = 8
-    Top = 65
+    Top = 94
     Width = 450
     Height = 21
     Enabled = False
@@ -114,7 +114,7 @@ object MainForm: TMainForm
   end
   object uStreamLexerLocationBitBtn: TBitBtn
     Left = 464
-    Top = 35
+    Top = 65
     Width = 161
     Height = 25
     Caption = 'Choose uStreamLexerLocation'
@@ -124,7 +124,7 @@ object MainForm: TMainForm
   end
   object lexlibLocationBitBtn: TBitBtn
     Left = 464
-    Top = 61
+    Top = 91
     Width = 161
     Height = 25
     Caption = 'Choose lexlibLocation'
@@ -134,7 +134,7 @@ object MainForm: TMainForm
   end
   object yaccFileBitBtn: TBitBtn
     Left = 464
-    Top = 152
+    Top = 182
     Width = 161
     Height = 25
     Caption = 'Choose Yacc-file'
@@ -143,7 +143,7 @@ object MainForm: TMainForm
   end
   object lexFileBitBtn: TBitBtn
     Left = 464
-    Top = 179
+    Top = 209
     Width = 161
     Height = 25
     Caption = 'Choose LexFile'
@@ -152,7 +152,7 @@ object MainForm: TMainForm
   end
   object yacclibLocationBitBtn: TBitBtn
     Left = 464
-    Top = 90
+    Top = 120
     Width = 161
     Height = 25
     Caption = 'Choose yacclibLocation'
@@ -162,16 +162,33 @@ object MainForm: TMainForm
   end
   object yacclibLocationEdit: TEdit
     Left = 8
-    Top = 92
+    Top = 121
     Width = 450
     Height = 21
     Enabled = False
     TabOrder = 14
   end
+  object CreateBitBtn: TBitBtn
+    Left = 464
+    Top = 252
+    Width = 161
+    Height = 25
+    Caption = 'Create Delphi Test Project'
+    TabOrder = 15
+    OnClick = CreateBitBtnClick
+  end
+  object OutputMemo: TMemo
+    Left = 8
+    Top = 254
+    Width = 450
+    Height = 248
+    ScrollBars = ssBoth
+    TabOrder = 16
+  end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
     Title = 'NDYaccLex Directory'
-    Left = 640
-    Top = 32
+    Left = 464
+    Top = 280
   end
 end

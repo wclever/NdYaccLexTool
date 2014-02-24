@@ -24,6 +24,8 @@ type
     lexFileBitBtn: TBitBtn;
     yacclibLocationBitBtn: TBitBtn;
     yacclibLocationEdit: TEdit;
+    CreateBitBtn: TBitBtn;
+    OutputMemo: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -33,9 +35,16 @@ type
     procedure yaccFileBitBtnClick(Sender: TObject);
     procedure lexFileBitBtnClick(Sender: TObject);
     procedure yacclibLocationBitBtnClick(Sender: TObject);
+    procedure CreateBitBtnClick(Sender: TObject);
   private
+    lastLine:String;
+    lastLineNumber : Integer;
     function readSettingsIniFile(ident : String):String;
     procedure writeSettingsIniFile(ident: String; directory : String);
+    procedure addLine(s: String);
+    procedure addToLine(s: String);
+    function checkDirectory(d : String):Integer;
+    function checkFile(d : String):Integer;
     { Private declarations }
   public
     { Public declarations }
@@ -118,6 +127,57 @@ begin
      writeSettingsIniFile('lexFile', OpenDialog.FileName);
   end;
 end;
+
+function TMainForm.checkDirectory(d:String):Integer;
+begin
+  addLine('checking directory ... '+d);
+  if DirectoryExists(d) then addToLine(': OK')
+  else
+  begin
+     addToLine(': Failed!');
+     exit(1);
+  end;
+  exit(0);
+end;
+
+function TMainForm.checkFile(d:String):Integer;
+begin
+  addLine('checking file ... '+d);
+  if FileExists(d) then addToLine(': OK')
+  else
+  begin
+     addToLine(': Failed!');
+     exit(1);
+  end;
+  exit(0);
+end;
+
+procedure TMainForm.CreateBitBtnClick(Sender: TObject);
+begin
+  OutputMemo.Clear;
+  //check if all needed files exist
+  if checkDirectory(NDYaccLexDirectoryEdit.Text)=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\default.y')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.pas')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\ndlex.exe')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\yylex.cod')=1 then exit;
+  if checkFile(NDYaccLexDirectoryEdit.Text+'\yyparse.cod')=1 then exit;
+end;
+
+procedure  TMainForm.addLine(s: String);
+begin
+  OutputMemo.Lines.Add(s);
+  lastLineNumber := OutputMemo.Lines.Count-1;
+  lastLine := s;
+end;
+
+procedure  TMainForm.addToLine(s: String);
+begin
+   OutputMemo.Lines[lastLineNumber] := lastLine + s;
+end;
+
 
 procedure TMainForm.EnableNDYaccLexDirectoryControlCheckBoxClick(Sender: TObject);
 begin
