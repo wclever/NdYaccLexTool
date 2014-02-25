@@ -2,7 +2,8 @@ This repository contains two products.
 
 -----------------
 
-    First, most important the Next Delphi Yacc & Lex - Parser generator as described after the next section.
+    First, most important the Next Delphi Yacc & Lex - Parser generator 
+    as described after the next section.
 
 -----------------
 
