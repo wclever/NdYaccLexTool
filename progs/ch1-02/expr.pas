@@ -1,4 +1,4 @@
-{.$DEFINE YYDEBUG}
+{$DEFINE YYDEBUG}
 {$DEFINE YYEXTRADEBUG}
 
 unit expr;
@@ -59,7 +59,7 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 47
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 46
 begin
   (* actions: *)
   case yyruleno of
@@ -67,7 +67,7 @@ begin
        end;
 2 : begin
        end;
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 51
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 50
   end;
 end(*yyaction*);
 
@@ -138,7 +138,7 @@ yytokens : array [256..yymaxtoken] of YYTokenRec = (
 { 256: } ( tokenname: 'error' )
 );
 
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 56
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 55
 
 const _error = 256; (* error token *)
 
@@ -221,7 +221,7 @@ begin(*yyparse*)
   (* initialize: *)
   lexer := TExprLexer.Create(AStream, nil);
   writecallback := AWriteCB;
-  lexer.writecallback := AWriteCB;
+  lexer.writecallback := AWriteCB; 
   try
 
   yystate := 0; yychar := -1; yynerrs := 0; yyerrflag := 0; yysp := 0;
