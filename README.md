@@ -33,8 +33,13 @@ This repository contains two products.
     In case that you don't have a Yacc-file but only a Lex-file, click on "default" in the Tool-GUI, and
     a default Yacc-file will be added.
     
-
-
+    Contact:
+        Contact for information about this test-gui to bert.verhees@rosa.nl
+        No guarantee that you will get a reply.
+        
+        Contact information for Roman Yankovsky below.
+        His project: https://github.com/RomanYankovsky/ndyacclex
+    
     Below the README from Roman Yankovsky
 
 -----------------
