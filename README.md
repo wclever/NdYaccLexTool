@@ -2,7 +2,7 @@ This repository contains two products.
 
 -----------------
 
-    First, most important the Next Delphi Yacc & Lex - Parser generator as described below.
+    First, most important the Next Delphi Yacc & Lex - Parser generator as described after the next section.
 
 -----------------
 
@@ -13,11 +13,25 @@ This repository contains two products.
     Not all examples are done yet, so errors can come up.
     These examples are in the directory "progs".
     
-    The executables needed to generate the source-code is are already, for your convenience in the directory tools.
-    In the configuration of the tool, let all sources configureable in disabled controls point to this directory.
+    This project is, like the one described below, under same conditions and license.
+    
+    How to use it:
+    
+    You don't need the directory ndYacclex. It is there for your convenience. The compiled executables
+    are in the tools directory.
+    
+    Compile the project in the source-directory.
+    
+    In the configuration of the compiled tool, let all sources configureable in disabled controls 
+    in the GUI of the tool point to this directory.
+    
+    Get yourself a working directory, where you want your to create test-project to come.
+    Point the other two to your Yacc and Lex files. 
+    
+    In case that you don't have a Yacc-file but only a Lex-file, click on "default" in the Tool-GUI, and
+    a default Yacc-file will be added.
     
 
-    This project is, like the one described below, under same conditions and license.
 
     Below the README from Roman Yankovsky
 
