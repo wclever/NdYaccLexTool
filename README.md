@@ -2,21 +2,24 @@ This repository contains two products.
 
 -----------------
 
-First, most important the Next Delphi Yacc & Lex - Parser generator as described below.
+    First, most important the Next Delphi Yacc & Lex - Parser generator as described below.
 
 -----------------
 
-Second, a tool which can created test-projects from lex and yacc files.
-This second tool uses examples from the book Lex & Yacc written by John Levine, Tony Mason ad Doug Brown.
-Not all examples are done yet, so errors can come up.
-These examples are in the directory "progs"
-The executables needed to generate the source-code is are already, for your convenience in the directory tools.
-In the configuration of the tool, let all sources configureable in disabled controls point to this directory.
-If you have no Y-file, but only a L-file, let the Y-file be the default.y which will get configured when cklicking on default.
+    Second, a tool which can created test-projects from lex and yacc files.
+    This second tool uses examples from the book Lex & Yacc written by:
+    John Levine, Tony Mason ad Doug Brown.
+    
+    Not all examples are done yet, so errors can come up.
+    These examples are in the directory "progs".
+    
+    The executables needed to generate the source-code is are already, for your convenience in the directory tools.
+    In the configuration of the tool, let all sources configureable in disabled controls point to this directory.
+    
 
-This project is, like the one described below, under same conditions and license.
+    This project is, like the one described below, under same conditions and license.
 
-Below the README from Roman Yankovsky
+    Below the README from Roman Yankovsky
 
 -----------------
 
