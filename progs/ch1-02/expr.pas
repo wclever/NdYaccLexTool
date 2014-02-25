@@ -1,4 +1,21 @@
-%%
+{.$DEFINE YYDEBUG}
+{$DEFINE YYEXTRADEBUG}
+
+unit expr;
+
+interface
+
+uses
+	SysUtils,
+	Classes,
+	yacclib,
+	lexlib,
+        uStreamLexer;
+
+
+
+type YYSType = Integer(*YYSType*);
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
 
 var yylval : YYSType;
 
@@ -42,16 +59,86 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-%%
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 47
 begin
   (* actions: *)
   case yyruleno of
-%%
+1 : begin
+       end;
+2 : begin
+       end;
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 51
   end;
 end(*yyaction*);
 
 (* parse table: *)
-%%
+
+type YYARec = record
+                sym, act : Integer;
+              end;
+     YYRRec = record
+                len, sym : Integer;
+                symname : String;
+              end;
+     YYTokenRec = record
+                tokenname : String;
+              end;
+
+const
+
+yynacts   = 1;
+yyngotos  = 1;
+yynstates = 2;
+yynrules  = 2;
+yymaxtoken = 256;
+
+yya : array [1..yynacts] of YYARec = (
+{ 0: }
+{ 1: }
+  ( sym: 0; act: 0 )
+);
+
+yyg : array [1..yyngotos] of YYARec = (
+{ 0: }
+  ( sym: -2; act: 1 )
+{ 1: }
+);
+
+yyd : array [0..yynstates-1] of Integer = (
+{ 0: } -1,
+{ 1: } 0
+);
+
+yyal : array [0..yynstates-1] of Integer = (
+{ 0: } 1,
+{ 1: } 1
+);
+
+yyah : array [0..yynstates-1] of Integer = (
+{ 0: } 0,
+{ 1: } 1
+);
+
+yygl : array [0..yynstates-1] of Integer = (
+{ 0: } 1,
+{ 1: } 2
+);
+
+yygh : array [0..yynstates-1] of Integer = (
+{ 0: } 1,
+{ 1: } 1
+);
+
+yyr : array [1..yynrules] of YYRRec = (
+{ 1: } ( len: 0; sym: -2; symname: 'input' ),
+{ 2: } ( len: 0; sym: -3; symname: 'expr' )
+);
+
+yytokens : array [256..yymaxtoken] of YYTokenRec = (
+{ 256: } ( tokenname: 'error' )
+);
+
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 56
 
 const _error = 256; (* error token *)
 
@@ -134,7 +221,7 @@ begin(*yyparse*)
   (* initialize: *)
   lexer := TExprLexer.Create(AStream, nil);
   writecallback := AWriteCB;
-  lexer.writecallback := AWriteCB; 
+  lexer.writecallback := AWriteCB;
   try
 
   yystate := 0; yychar := -1; yynerrs := 0; yyerrflag := 0; yysp := 0;
@@ -250,3 +337,8 @@ finally
   lexer.Free;
 end;
 end(*yyparse*);
+
+
+{$I exprlex.pas}
+
+end.

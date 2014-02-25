@@ -15,12 +15,12 @@ end(*yyaction*);
 (* DFA table: *)
 %%
 
-var yyn : Integer;
+var 
+	yyn : Integer;
 
 label start, scan, action;
 
 begin
-
 start:
 
   (* initialize: *)
