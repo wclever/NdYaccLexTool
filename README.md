@@ -3,6 +3,9 @@ This repository contains two products.
 -----------------
 
 First, most important the Next Delphi Yacc & Lex - Parser generator as described below.
+
+-----------------
+
 Second, a tool which can created test-projects from lex and yacc files.
 This second tool uses examples from the book Lex & Yacc written by John Levine, Tony Mason ad Doug Brown.
 Not all examples are done yet, so errors can come up.
