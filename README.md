@@ -2,18 +2,45 @@ This repository contains two products.
 
 -----------------
 
-First, most important the Next Delphi Yacc & Lex - Parser generator as described below.
-Second, a tool which can created test-projects from lex and yacc files.
-This second tool uses examples from the book Lex & Yacc written by John Levine, Tony Mason ad Doug Brown.
-Not all examples are done yet, so errors can come up.
-These examples are in the directory "progs"
-The executables needed to generate the source-code is are already, for your convenience in the directory tools.
-In the configuration of the tool, let all sources configureable in disabled controls point to this directory.
-If you have no Y-file, but only a L-file, let the Y-file be the default.y which will get configured when cklicking on default.
+    First, most important the Next Delphi Yacc & Lex - Parser generator 
+    by Roman Yankovsky
+    (as described after the next section)
 
-This project is, like the one described below, under same conditions and license.
+-----------------
 
-Below the README from Roman Yankovsky
+    Second, a tool which can created test-projects from lex and yacc files.
+    This second tool uses examples from the book Lex & Yacc written by:
+    John Levine, Tony Mason ad Doug Brown.
+    
+    Not all examples are done yet, so errors can come up.
+    These examples are in the directory "progs".
+    
+    This project is, like the one described below, under same conditions and license.
+    
+    How to use it:
+    
+    You don't need the directory ndYacclex. It is there for your convenience. The compiled executables
+    are in the tools directory.
+    
+    Compile the project in the source-directory.
+    
+    In the configuration of the compiled tool, let all sources configureable in disabled controls 
+    in the GUI of the tool point to this directory.
+    
+    Get yourself a working directory, where you want your to create test-project to come.
+    Point the other two to your Yacc and Lex files. 
+    
+    In case that you don't have a Yacc-file but only a Lex-file, click on "default" in the Tool-GUI, and
+    a default Yacc-file will be added.
+    
+    Contact:
+        Contact for information about this test-gui to bert.verhees@rosa.nl
+        No guarantee that you will get a reply.
+        
+        Contact information for Roman Yankovsky below.
+        His project: https://github.com/RomanYankovsky/ndyacclex
+    
+    Below the README from Roman Yankovsky
 
 -----------------
 
