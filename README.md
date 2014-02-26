@@ -33,6 +33,9 @@ This repository contains two products.
     In case that you don't have a Yacc-file but only a Lex-file, click on "default" in the Tool-GUI, and
     a default Yacc-file will be added.
     
+    Except from the Yacc and Lex-files you also need the code-templates yyparse.cod and yylex.cod in
+    your working directory (were your Yacc and Lex-files are)
+    
     Contact:
         Contact for information about this test-gui to bert.verhees@rosa.nl
         No guarantee that you will get a reply.
