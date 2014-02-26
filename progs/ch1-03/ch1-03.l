@@ -28,14 +28,14 @@ could |
 has |
 have |
 had |
-go		 writecallback(yytext+': is a verb\n'); 
+go		 writecallback(yytext+': is a verb'); 
 
 very |
 simply |
 gently |
 quietly |
 calmly |
-angrily		writecallback(yytext+': is an adverb\n'); 
+angrily		writecallback(yytext+': is an adverb'); 
 
 to |
 from |
@@ -43,38 +43,34 @@ behind |
 above |
 below |
 between |
-below		writecallback(yytext+': is a preposition\n'); 
+below		writecallback(yytext+': is a preposition'); 
 
 if |
 then |
 and |
 but |
-or		writecallback(yytext+': is a conjunction\n'); 
+or		writecallback(yytext+': is a conjunction'); 
 
 their |
 my |
 your |
 his |
 her |
-its		writecallback(yytext+': is an adjective\n'); 
+its		writecallback(yytext+': is an adjective'); 
 
 I |
 you |
 he |
 she |
 we |
-they		writecallback(yytext+': in a pronoun\n'); 
+they		writecallback(yytext+': in a pronoun'); 
 
 
-[a-zA-Z]+ {
-	 writecallback(yytext+':  don't recognize, might be a noun\n');
-	}
+[a-zA-Z]+ 
+	 writecallback(yytext+':  don't recognize, might be a noun');
+	
 
-\&.|\n		writecallback(yytext);
+\&.|		writecallback(yytext);
 
 %%
 
-{main()
-{
-	yylex();
-}}
