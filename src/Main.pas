@@ -250,8 +250,9 @@ begin
   if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.pas')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndlex.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
-  if checkFile(NDYaccLexDirectoryEdit.Text+'\yylex.cod')=1 then exit;
-  if checkFile(NDYaccLexDirectoryEdit.Text+'\yyparse.cod')=1 then exit;
+  FileCopy(OutputProjectDirectoryEdit.Text+'\yyparse.cod', NDYaccLexDirectoryEdit.Text+'\yyparse.cod');
+  FileCopy(OutputProjectDirectoryEdit.Text+'\yylex.cod', NDYaccLexDirectoryEdit.Text+'\yylex.cod');
+  OutputMemo.Lines.Add('');
   if checkFile(lexlibLocationEdit.Text)=1 then exit;
   if checkFile(yacclibLocationEdit.Text)=1 then exit;
   if checkDirectory(OutputProjectDirectoryEdit.Text)=1 then exit;
@@ -261,7 +262,6 @@ begin
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('copying projectfiles');
-  OutputMemo.Lines.Add('');
   FileCopy(NDYaccLexDirectoryEdit.Text+'\test.dpr', OutputProjectDirectoryEdit.Text+'\test.dpr');
   FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm', OutputProjectDirectoryEdit.Text+'\frmTest.dfm');
   FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.pas', OutputProjectDirectoryEdit.Text+'\frmTest.pas');
