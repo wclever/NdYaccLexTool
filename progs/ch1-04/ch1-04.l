@@ -1,7 +1,7 @@
 %{
-/*
+{/*
  * Word recognizer with a symbol table.
- */
+ */}
 
 enum {
 	LOOKUP = 0, /* default - looking rather than defining. */

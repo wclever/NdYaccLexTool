@@ -3,6 +3,15 @@
 var yylval : YYSType;
 
 type
+  TState = (LOOKUP = 0, { default - looking rather than defining. }
+	VERB,
+	ADJ,
+	ADV,
+	NOUN,
+	PREP,
+	PRON,
+	CONJ);
+  
   TWriteCallback = procedure(Value: String) of object;
   TExprLexer = class(TStreamLexer)
   public
