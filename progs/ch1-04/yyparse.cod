@@ -24,7 +24,6 @@
       public
         writecallback: TWriteCallback;
         state: TState;
-    //    wordList : TWord;
         function Parse() : integer; override;
         function addWord(_type:TState; word: String):Integer;
         function lookupWord(word: String):TState;
@@ -65,7 +64,6 @@
       newWp^.wordName:= word;
       newWp^.wordType := _type;
       givenWp^.next := newWp;
-    //  wordList.next :=  Addr(newWp);
       result := 1; {it worked}
     end;
 
