@@ -303,6 +303,9 @@ begin
   ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
   OutPutMemo.Lines.AddStrings(buffer);
   buffer.Free;
+
+  OutputMemo.Lines.Add('');
+  OutputMemo.Lines.Add('Finished, see messages.');
 end;
 
 procedure TMainForm.debugInfoCheckBoxClick(Sender: TObject);

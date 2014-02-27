@@ -1,22 +1,33 @@
 %%
-
 var yylval : YYSType;
 
 type
   TState = (LOOKUP = 0, { default - looking rather than defining. }
-	VERB,
-	ADJ,
-	ADV,
-	NOUN,
-	PREP,
-	PRON,
-	CONJ);
-  
+	          VERB,
+	          ADJ,
+	          ADV,
+	          NOUN,
+	          PREP,
+	          PRON,
+	          CONJ);
+
+  pWord = ^TWord;
+
+  TWord = record
+  	wordName : String[100];
+  	wordType : TState;
+  	next : ^TWord;
+  end;
+
   TWriteCallback = procedure(Value: String) of object;
   TExprLexer = class(TStreamLexer)
   public
     writecallback: TWriteCallback;
+    state: TState;
+    wordList : TWord;
     function parse() : integer; override;
+    function addWord(_type:TState; word: String):Integer;
+    function lookupWord(word: String):TState;
   end;
 
   EExprParserException = class(Exception);
@@ -30,6 +41,49 @@ type
   end;
 
 implementation
+
+function TExprLexer.addWord(_type:TState; word: String):Integer;
+var
+   wp : TWord;
+   state : TState;
+begin
+  state :=  LOOKUP;
+	if lookupWord(word) <> state then
+	begin
+		writecallback('warning: word '+word+' already defined');
+		result := 0;
+		exit;
+	end;
+	{/* word not there, allocate a new entry and link it on the list */}
+	
+	with wp do
+	begin
+		next := Addr(wordList);
+		wordName:= word; 	
+		wordType := _type;
+	end;
+	wordList := wp;
+	result := 1; {it worked}
+end;
+
+function TExprLexer.lookupWord(word: String):TState;
+var
+	wp : TWord;
+  state : TState;
+begin
+  wp := wordList;
+	{/* search down the list looking for the word */}
+	while wp.next<>nil do
+	begin
+		if wp.wordName=word then
+		begin
+			result := wp.wordType;
+			exit;
+		end;
+		wp := wp.next^;
+	end;
+	result := TState.LOOKUP;
+end;
 
 constructor TExprParser.Create;
 var

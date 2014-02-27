@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 0
   Top = 0
   Caption = 'ROSA NDYaccLexTool'
-  ClientHeight = 504
+  ClientHeight = 621
   ClientWidth = 713
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -37,6 +37,9 @@ object MainForm: TMainForm
     03FFF80003FFFC0003FFF80003FFFC0003FFFB0007FFFDD01FFFFFFEFFFF}
   OldCreateOrder = False
   OnCreate = FormCreate
+  DesignSize = (
+    713
+    621)
   PixelsPerInch = 96
   TextHeight = 13
   object NDYaccLexDirectoryBitBtn: TBitBtn
@@ -181,9 +184,11 @@ object MainForm: TMainForm
     Left = 8
     Top = 283
     Width = 689
-    Height = 219
+    Height = 336
+    Anchors = [akLeft, akTop, akRight, akBottom]
     ScrollBars = ssBoth
     TabOrder = 16
+    ExplicitHeight = 219
   end
   object DefaultBitBtn: TBitBtn
     Left = 632
