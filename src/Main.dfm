@@ -188,7 +188,6 @@ object MainForm: TMainForm
     Anchors = [akLeft, akTop, akRight, akBottom]
     ScrollBars = ssBoth
     TabOrder = 16
-    ExplicitHeight = 219
   end
   object DefaultBitBtn: TBitBtn
     Left = 632
@@ -216,6 +215,15 @@ object MainForm: TMainForm
     Caption = 'optimize ndlex'
     TabOrder = 19
     OnClick = optimizeCheckBoxClick
+  end
+  object SaveSettingsBitBtn: TBitBtn
+    Left = 464
+    Top = 240
+    Width = 161
+    Height = 25
+    Caption = 'Save Settings'
+    TabOrder = 20
+    OnClick = SaveSettingsBitBtnClick
   end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'

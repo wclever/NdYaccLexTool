@@ -29,6 +29,7 @@ type
     DefaultBitBtn: TBitBtn;
     debugInfoCheckBox: TCheckBox;
     optimizeCheckBox: TCheckBox;
+    SaveSettingsBitBtn: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -42,6 +43,7 @@ type
     procedure DefaultBitBtnClick(Sender: TObject);
     procedure debugInfoCheckBoxClick(Sender: TObject);
     procedure optimizeCheckBoxClick(Sender: TObject);
+    procedure SaveSettingsBitBtnClick(Sender: TObject);
   private
     lastLine:String;
     lastLineNumber : Integer;
@@ -64,6 +66,16 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TMainForm.SaveSettingsBitBtnClick(Sender: TObject);
+begin
+  writeSettingsIniFile('OutputProjectDirectory', NDYaccLexDirectoryEdit.Text);
+  writeSettingsIniFile('StreamLexerFile', uStreamLexerLocationEdit.Text);
+  writeSettingsIniFile('LexlibFile', lexlibLocationEdit.Text);
+  writeSettingsIniFile('YacclibFile', yacclibLocationEdit.Text);
+  writeSettingsIniFile('yaccFile', yaccFileEdit.Text);
+  writeSettingsIniFile('lexFile', lexFileEdit.Text);
+end;
 
 procedure TMainForm.OutputProjectDirectoryBitBtnClick(Sender: TObject);
 var
@@ -421,5 +433,6 @@ begin
   iniFile.WriteString('Settings',ident, value);
   iniFile.Free;
 end;
+
 
 end.
