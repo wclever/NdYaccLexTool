@@ -182,9 +182,9 @@ object MainForm: TMainForm
   end
   object OutputMemo: TMemo
     Left = 8
-    Top = 283
+    Top = 304
     Width = 689
-    Height = 336
+    Height = 315
     Anchors = [akLeft, akTop, akRight, akBottom]
     ScrollBars = ssBoth
     TabOrder = 16
@@ -208,7 +208,7 @@ object MainForm: TMainForm
     OnClick = debugInfoCheckBoxClick
   end
   object optimizeCheckBox: TCheckBox
-    Left = 320
+    Left = 296
     Top = 250
     Width = 97
     Height = 17
@@ -224,6 +224,15 @@ object MainForm: TMainForm
     Caption = 'Save Settings'
     TabOrder = 20
     OnClick = SaveSettingsBitBtnClick
+  end
+  object commandlineQuotesCheckBox: TCheckBox
+    Left = 16
+    Top = 280
+    Width = 153
+    Height = 17
+    Caption = 'Use commandline quotes'
+    TabOrder = 21
+    OnClick = commandlineQuotesCheckBoxClick
   end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'

@@ -30,6 +30,7 @@ type
     debugInfoCheckBox: TCheckBox;
     optimizeCheckBox: TCheckBox;
     SaveSettingsBitBtn: TBitBtn;
+    commandlineQuotesCheckBox: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -44,6 +45,7 @@ type
     procedure debugInfoCheckBoxClick(Sender: TObject);
     procedure optimizeCheckBoxClick(Sender: TObject);
     procedure SaveSettingsBitBtnClick(Sender: TObject);
+    procedure commandlineQuotesCheckBoxClick(Sender: TObject);
   private
     lastLine:String;
     lastLineNumber : Integer;
@@ -181,6 +183,15 @@ begin
   exit(0);
 end;
 
+procedure TMainForm.commandlineQuotesCheckBoxClick(Sender: TObject);
+var
+  iniFile : TIniFile;
+begin
+  iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
+  iniFile.WriteBool('Settings','commandlinequotes',commandlineQuotesCheckBox.Checked);
+  iniFile.Free;
+end;
+
 function TMainForm.GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;
 var
   SA: TSecurityAttributes;
@@ -252,6 +263,7 @@ var
   buffer : TStringList;
   ndyaccParameter : String;
   ndlexParameter : String;
+  commandLine : String;
 begin
   OutputMemo.Clear;
   //check if all needed files exist
@@ -302,8 +314,15 @@ begin
 
   ChDir(OutputProjectDirectoryEdit.Text);
   buffer := TStringList.Create();
-  buffer.Text := GetDosOutput(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe'+
-  ndyaccParameter+yaccFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\expr.pas');
+
+  if commandlineQuotesCheckBox.Checked then
+    commandLine := '"'+NDYaccLexDirectoryEdit.Text+'\ndyacc.exe"'+
+  ndyaccParameter+'"'+yaccFileEdit.Text+'" "'+OutputProjectDirectoryEdit.Text+'\expr.pas"'
+  else
+    commandLine := NDYaccLexDirectoryEdit.Text+'\ndyacc.exe'+
+  ndyaccParameter+yaccFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\expr.pas';
+
+  buffer.Text := GetDosOutput(commandLine);
   OutPutMemo.Lines.AddStrings(buffer);
   ChDir(OutputProjectDirectoryEdit.Text);
 
@@ -311,8 +330,15 @@ begin
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
-  buffer.Text := GetDosOutput(NDYaccLexDirectoryEdit.Text+'\ndlex.exe'+
-  ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas');
+
+  if commandlineQuotesCheckBox.Checked then
+    commandLine := '"'+NDYaccLexDirectoryEdit.Text+'\ndlex.exe"'+
+  ndlexParameter+'"'+lexFileEdit.Text+'" "'+OutputProjectDirectoryEdit.Text+'\exprlex.pas"'
+  else
+    commandLine := NDYaccLexDirectoryEdit.Text+'\ndlex.exe'+
+  ndlexParameter+lexFileEdit.Text+' '+OutputProjectDirectoryEdit.Text+'\exprlex.pas';
+
+  buffer.Text := GetDosOutput(commandLine);
   OutPutMemo.Lines.AddStrings(buffer);
   buffer.Free;
 
@@ -383,6 +409,7 @@ begin
   iniFile :=  TIniFile.Create(ExtractFilePath(Application.ExeName) + 'NDYaccLexTool.ini');
   debugInfoCheckbox.Checked := iniFile.ReadBool('Settings','debugInfo',false);
   optimizeCheckBox.Checked := iniFile.ReadBool('Settings','optimize',false);
+  commandlineQuotesCheckBox.Checked := iniFile.ReadBool('Settings','commandlineQuotes',false);
   iniFile.Free;
 end;
 
