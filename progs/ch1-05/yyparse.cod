@@ -39,46 +39,6 @@
     var wordList : TWord;
 
 
-    function TExprLexer.addWord(_type:Integer; word: String):Integer;
-    var
-       newWp : pWord;
-       givenWp : pWord;
-    begin
-      if lookupWord(word) <> LOOKUP then
-      begin
-        writecallback('warning: word '+word+' already defined');
-        result := 0;
-        exit;
-      end;
-      {/* word not there, allocate a new entry and link it on the list */}
-
-      new(newWp);
-      givenWp := Addr(wordList);
-      newWp^.next := givenWp^.next;
-      newWp^.wordName:= word;
-      newWp^.wordType := _type;
-      givenWp^.next := newWp;
-      result := 1; {it worked}
-    end;
-
-    function TExprLexer.lookupWord(word: String):Integer;
-    var
-      wp : TWord;
-    begin
-      wp := wordList;
-      {/* search down the list looking for the word */}
-      while true do
-      begin
-        if wp.wordName=word then
-        begin
-          result := wp.wordType;
-          exit;
-        end;
-        if wp.next=nil then break;
-        wp := wp.next^;
-      end;
-      result := LOOKUP;
-    end;
 
     constructor TExprParser.Create;
     var

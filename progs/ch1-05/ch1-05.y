@@ -14,19 +14,9 @@
  	lexlib,
         uStreamLexer;
         
-            const
-	    NOUN = 257;
-	    PRONOUN = 258;
-	    VERB = 259;
-	    ADVERB = 260;
-	    ADJECTIVE = 261;
-	    PREPOSITION = 262;
-	    CONJUNCTION = 263;
-	    LOOKUP = 0;
-
 %}
 
-
+%token NOUN PRONOUN VERB ADVERB ADJECTIVE PREPOSITION CONJUNCTION
 %%
 sentence: subject VERB object	{ writecallback('Sentence is valid'); }
 	;

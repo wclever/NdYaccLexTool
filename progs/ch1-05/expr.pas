@@ -16,18 +16,15 @@
  	lexlib,
         uStreamLexer;
         
-            const
-	    NOUN = 257;
-	    PRONOUN = 258;
-	    VERB = 259;
-	    ADVERB = 260;
-	    ADJECTIVE = 261;
-	    PREPOSITION = 262;
-	    CONJUNCTION = 263;
-	    LOOKUP = 0;
-
+const NOUN = 257;
+const PRONOUN = 258;
+const VERB = 259;
+const ADVERB = 260;
+const ADJECTIVE = 261;
+const PREPOSITION = 262;
+const CONJUNCTION = 263;
 type YYSType = Integer(*YYSType*);
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
+// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 2
     var yylval : YYSType;
     
 
@@ -68,46 +65,6 @@ type YYSType = Integer(*YYSType*);
     var wordList : TWord;
 
 
-    function TExprLexer.addWord(_type:Integer; word: String):Integer;
-    var
-       newWp : pWord;
-       givenWp : pWord;
-    begin
-      if lookupWord(word) <> LOOKUP then
-      begin
-        writecallback('warning: word '+word+' already defined');
-        result := 0;
-        exit;
-      end;
-      {/* word not there, allocate a new entry and link it on the list */}
-
-      new(newWp);
-      givenWp := Addr(wordList);
-      newWp^.next := givenWp^.next;
-      newWp^.wordName:= word;
-      newWp^.wordType := _type;
-      givenWp^.next := newWp;
-      result := 1; {it worked}
-    end;
-
-    function TExprLexer.lookupWord(word: String):Integer;
-    var
-      wp : TWord;
-    begin
-      wp := wordList;
-      {/* search down the list looking for the word */}
-      while true do
-      begin
-        if wp.wordName=word then
-        begin
-          result := wp.wordType;
-          exit;
-        end;
-        if wp.next=nil then break;
-        wp := wp.next^;
-      end;
-      result := LOOKUP;
-    end;
 
     constructor TExprParser.Create;
     var
@@ -147,12 +104,12 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 122
+// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 82
 begin
   (* actions: *)
   case yyruleno of
 1 : begin
-         // source: ch1-05.y line#31
+         // source: ch1-05.y line#21
          writecallback('Sentence is valid'); 
        end;
 2 : begin
@@ -164,7 +121,7 @@ begin
 4 : begin
          yyval := yyv[yysp-0];
        end;
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 126
+// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 86
   end;
 end(*yyaction*);
 
@@ -183,38 +140,38 @@ type YYARec = record
 
 const
 
-yynacts   = 1;
-yyngotos  = 7;
+yynacts   = 5;
+yyngotos  = 3;
 yynstates = 8;
 yynrules  = 4;
-yymaxtoken = 256;
+yymaxtoken = 263;
 
 yya : array [1..yynacts] of YYARec = (
 { 0: }
+  ( sym: 257; act: 3 ),
+  ( sym: 258; act: 4 ),
 { 1: }
+  ( sym: 259; act: 5 ),
 { 2: }
+  ( sym: 0; act: 0 ),
 { 3: }
 { 4: }
-  ( sym: 0; act: 0 )
 { 5: }
+  ( sym: 257; act: 7 )
 { 6: }
 { 7: }
 );
 
 yyg : array [1..yyngotos] of YYARec = (
 { 0: }
-  ( sym: -7; act: 1 ),
-  ( sym: -6; act: 2 ),
-  ( sym: -3; act: 3 ),
-  ( sym: -2; act: 4 ),
+  ( sym: -3; act: 1 ),
+  ( sym: -2; act: 2 ),
 { 1: }
 { 2: }
 { 3: }
-  ( sym: -4; act: 5 ),
 { 4: }
 { 5: }
-  ( sym: -6; act: 6 ),
-  ( sym: -5; act: 7 )
+  ( sym: -4; act: 6 )
 { 6: }
 { 7: }
 );
@@ -223,69 +180,76 @@ yyd : array [0..yynstates-1] of Integer = (
 { 0: } 0,
 { 1: } 0,
 { 2: } 0,
-{ 3: } 0,
-{ 4: } 0,
+{ 3: } -2,
+{ 4: } -3,
 { 5: } 0,
-{ 6: } -4,
-{ 7: } -1
+{ 6: } -1,
+{ 7: } -4
 );
 
 yyal : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 1,
-{ 2: } 1,
-{ 3: } 1,
-{ 4: } 1,
-{ 5: } 2,
-{ 6: } 2,
-{ 7: } 2
+{ 1: } 3,
+{ 2: } 4,
+{ 3: } 5,
+{ 4: } 5,
+{ 5: } 5,
+{ 6: } 6,
+{ 7: } 6
 );
 
 yyah : array [0..yynstates-1] of Integer = (
-{ 0: } 0,
-{ 1: } 0,
-{ 2: } 0,
-{ 3: } 0,
-{ 4: } 1,
-{ 5: } 1,
-{ 6: } 1,
-{ 7: } 1
+{ 0: } 2,
+{ 1: } 3,
+{ 2: } 4,
+{ 3: } 4,
+{ 4: } 4,
+{ 5: } 5,
+{ 6: } 5,
+{ 7: } 5
 );
 
 yygl : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 5,
-{ 2: } 5,
-{ 3: } 5,
-{ 4: } 6,
-{ 5: } 6,
-{ 6: } 8,
-{ 7: } 8
+{ 1: } 3,
+{ 2: } 3,
+{ 3: } 3,
+{ 4: } 3,
+{ 5: } 3,
+{ 6: } 4,
+{ 7: } 4
 );
 
 yygh : array [0..yynstates-1] of Integer = (
-{ 0: } 4,
-{ 1: } 4,
-{ 2: } 4,
-{ 3: } 5,
-{ 4: } 5,
-{ 5: } 7,
-{ 6: } 7,
-{ 7: } 7
+{ 0: } 2,
+{ 1: } 2,
+{ 2: } 2,
+{ 3: } 2,
+{ 4: } 2,
+{ 5: } 3,
+{ 6: } 3,
+{ 7: } 3
 );
 
 yyr : array [1..yynrules] of YYRRec = (
 { 1: } ( len: 3; sym: -2; symname: 'sentence' ),
 { 2: } ( len: 1; sym: -3; symname: 'subject' ),
 { 3: } ( len: 1; sym: -3; symname: 'subject' ),
-{ 4: } ( len: 1; sym: -5; symname: 'object' )
+{ 4: } ( len: 1; sym: -4; symname: 'object' )
 );
 
 yytokens : array [256..yymaxtoken] of YYTokenRec = (
-{ 256: } ( tokenname: 'error' )
+{ 256: } ( tokenname: 'error' ),
+{ 257: } ( tokenname: 'NOUN' ),
+{ 258: } ( tokenname: 'PRONOUN' ),
+{ 259: } ( tokenname: 'VERB' ),
+{ 260: } ( tokenname: 'ADVERB' ),
+{ 261: } ( tokenname: 'ADJECTIVE' ),
+{ 262: } ( tokenname: 'PREPOSITION' ),
+{ 263: } ( tokenname: 'CONJUNCTION' )
 );
 
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 131
+// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 91
 
 const _error = 256; (* error token *)
 
