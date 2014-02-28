@@ -12,7 +12,7 @@
 
 function TExprLexer.parse() : integer;
 
-procedure yyaction ( yyruleno : Integer );
+function yyaction ( yyruleno : Integer );
   (* local definitions: *)
 
 begin
@@ -22,8 +22,10 @@ begin
   	 state := LOOKUP; 	{/* end of line, reset/return to default state */}
 
   2:
-    	state := LOOKUP;
+    	begin
+	state := LOOKUP;
 	result := 0; //* end of sentence */
+	end;
 	
 
   3:
@@ -51,19 +53,19 @@ begin
 	     else
 	     begin
 		case lookupWord(yytext) of
-			VERB: result = VERB;
-			ADJECTIVE: result = ADJECTIVE;
-			ADVERB: result = ADVERB;
-			NOUN: result = NOUN;
-			PREPOSITION:  result = PREPOSITION;
-			PRONOUN: result = PRONOUN;
-			CONJUNCTION: result = CONJUNCTION;
+			VERB: result := VERB;
+			ADJECTIVE: result := ADJECTIVE;
+			ADVERB: result := ADVERB;
+			NOUN: result := NOUN;
+			PREPOSITION:  result := PREPOSITION;
+			PRONOUN: result := PRONOUN;
+			CONJUNCTION: result := CONJUNCTION;
 		else
 		  writecallback(yytext+':  dont recognize');
 		  //* don't return, just ignore it */
-		}
-            }
-          end
+          end;
+          end;
+          end;
 
   11:
  	; //* ignore anything else */} 

@@ -15,8 +15,10 @@
 
 \n	 state := LOOKUP; 	{/* end of line, reset/return to default state */}
 
-\.\n	state := LOOKUP;
-	return 0; //* end of sentence */
+\.\n	begin
+	state := LOOKUP;
+	result := 0; //* end of sentence */
+	end;
 	
 
 ^verb	 state := VERB; 
@@ -36,19 +38,19 @@
 	     else
 	     begin
 		case lookupWord(yytext) of
-			VERB: result = VERB;
-			ADJECTIVE: result = ADJECTIVE;
-			ADVERB: result = ADVERB;
-			NOUN: result = NOUN;
-			PREPOSITION:  result = PREPOSITION;
-			PRONOUN: result = PRONOUN;
-			CONJUNCTION: result = CONJUNCTION;
+			VERB: result := VERB;
+			ADJECTIVE: result := ADJECTIVE;
+			ADVERB: result := ADVERB;
+			NOUN: result := NOUN;
+			PREPOSITION:  result := PREPOSITION;
+			PRONOUN: result := PRONOUN;
+			CONJUNCTION: result := CONJUNCTION;
 		else
 		  writecallback(yytext+':  dont recognize');
 		  //* don't return, just ignore it */
-		}
-            }
-          end
+          end;
+          end;
+          end;
 
 .	; //* ignore anything else */} 
 

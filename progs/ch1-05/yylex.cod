@@ -2,7 +2,7 @@
 
 function TExprLexer.parse() : integer;
 
-procedure yyaction ( yyruleno : Integer );
+function yyaction ( yyruleno : Integer );
   (* local definitions: *)
 %%
 begin

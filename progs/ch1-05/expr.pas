@@ -1,24 +1,39 @@
 {$DEFINE YYDEBUG}
 {$DEFINE YYEXTRADEBUG}
 
-unit expr;
-
-interface
-
-uses
-	SysUtils,
-	Classes,
-	yacclib,
-	lexlib,
+///*
+ //* A lexer for the basic grammar to use for recognizing english sentences.
+ //*/
+ 
+ unit expr;
+ 
+ interface
+ 
+ uses
+ 	SysUtils,
+ 	Classes,
+ 	yacclib,
+ 	lexlib,
         uStreamLexer;
-
-
+        
+            const
+	    NOUN = 257;
+	    PRONOUN = 258;
+	    VERB = 259;
+	    ADVERB = 260;
+	    ADJECTIVE = 261;
+	    PREPOSITION = 262;
+	    CONJUNCTION = 263;
+	    LOOKUP = 0;
 
 type YYSType = Integer(*YYSType*);
 // source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
     var yylval : YYSType;
+    
+
 
     type
+
       pWord = ^TWord;
 
       TWord = record
@@ -51,18 +66,6 @@ type YYSType = Integer(*YYSType*);
     implementation
 
     var wordList : TWord;
-
-    const
-	NOUN = 257;
-	PRONOUN = 258;
-	VERB = 259;
-	ADVERB = 260;
-	ADJECTIVE = 261;
-	PREPOSITION = 262;
-	CONJUNCTION = 263 ;
-
-	LOOKUP = 0;
-
 
 
     function TExprLexer.addWord(_type:Integer; word: String):Integer;
@@ -144,15 +147,24 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 128
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 122
 begin
   (* actions: *)
   case yyruleno of
 1 : begin
+         // source: ch1-05.y line#31
+         writecallback('Sentence is valid'); 
        end;
 2 : begin
+         yyval := yyv[yysp-0];
        end;
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 132
+3 : begin
+         yyval := yyv[yysp-0];
+       end;
+4 : begin
+         yyval := yyv[yysp-0];
+       end;
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 126
   end;
 end(*yyaction*);
 
@@ -172,58 +184,108 @@ type YYARec = record
 const
 
 yynacts   = 1;
-yyngotos  = 1;
-yynstates = 2;
-yynrules  = 2;
+yyngotos  = 7;
+yynstates = 8;
+yynrules  = 4;
 yymaxtoken = 256;
 
 yya : array [1..yynacts] of YYARec = (
 { 0: }
 { 1: }
+{ 2: }
+{ 3: }
+{ 4: }
   ( sym: 0; act: 0 )
+{ 5: }
+{ 6: }
+{ 7: }
 );
 
 yyg : array [1..yyngotos] of YYARec = (
 { 0: }
-  ( sym: -2; act: 1 )
+  ( sym: -7; act: 1 ),
+  ( sym: -6; act: 2 ),
+  ( sym: -3; act: 3 ),
+  ( sym: -2; act: 4 ),
 { 1: }
+{ 2: }
+{ 3: }
+  ( sym: -4; act: 5 ),
+{ 4: }
+{ 5: }
+  ( sym: -6; act: 6 ),
+  ( sym: -5; act: 7 )
+{ 6: }
+{ 7: }
 );
 
 yyd : array [0..yynstates-1] of Integer = (
-{ 0: } -1,
-{ 1: } 0
+{ 0: } 0,
+{ 1: } 0,
+{ 2: } 0,
+{ 3: } 0,
+{ 4: } 0,
+{ 5: } 0,
+{ 6: } -4,
+{ 7: } -1
 );
 
 yyal : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 1
+{ 1: } 1,
+{ 2: } 1,
+{ 3: } 1,
+{ 4: } 1,
+{ 5: } 2,
+{ 6: } 2,
+{ 7: } 2
 );
 
 yyah : array [0..yynstates-1] of Integer = (
 { 0: } 0,
-{ 1: } 1
+{ 1: } 0,
+{ 2: } 0,
+{ 3: } 0,
+{ 4: } 1,
+{ 5: } 1,
+{ 6: } 1,
+{ 7: } 1
 );
 
 yygl : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 2
+{ 1: } 5,
+{ 2: } 5,
+{ 3: } 5,
+{ 4: } 6,
+{ 5: } 6,
+{ 6: } 8,
+{ 7: } 8
 );
 
 yygh : array [0..yynstates-1] of Integer = (
-{ 0: } 1,
-{ 1: } 1
+{ 0: } 4,
+{ 1: } 4,
+{ 2: } 4,
+{ 3: } 5,
+{ 4: } 5,
+{ 5: } 7,
+{ 6: } 7,
+{ 7: } 7
 );
 
 yyr : array [1..yynrules] of YYRRec = (
-{ 1: } ( len: 0; sym: -2; symname: 'input' ),
-{ 2: } ( len: 0; sym: -3; symname: 'expr' )
+{ 1: } ( len: 3; sym: -2; symname: 'sentence' ),
+{ 2: } ( len: 1; sym: -3; symname: 'subject' ),
+{ 3: } ( len: 1; sym: -3; symname: 'subject' ),
+{ 4: } ( len: 1; sym: -5; symname: 'object' )
 );
 
 yytokens : array [256..yymaxtoken] of YYTokenRec = (
 { 256: } ( tokenname: 'error' )
 );
 
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 137
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 131
 
 const _error = 256; (* error token *)
 

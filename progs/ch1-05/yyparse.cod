@@ -1,21 +1,15 @@
 %%
     var yylval : YYSType;
+    
+
 
     type
-      TState = (LOOKUP = 0, { default - looking rather than defining. }
-                VERB,
-                ADJ,
-                ADV,
-                NOUN,
-                PREP,
-                PRON,
-                CONJ);
 
       pWord = ^TWord;
 
       TWord = record
         wordName : String[100];
-        wordType : TState;
+        wordType : Integer;
         next : pWord;
       end;
 
@@ -23,10 +17,10 @@
       TExprLexer = class(TStreamLexer)
       public
         writecallback: TWriteCallback;
-        state: TState;
+        state: Integer;
         function Parse() : integer; override;
-        function addWord(_type:TState; word: String):Integer;
-        function lookupWord(word: String):TState;
+        function addWord(_type:Integer; word: String):Integer;
+        function lookupWord(word: String):Integer;
       end;
 
       EExprParserException = class(Exception);
@@ -45,7 +39,7 @@
     var wordList : TWord;
 
 
-    function TExprLexer.addWord(_type:TState; word: String):Integer;
+    function TExprLexer.addWord(_type:Integer; word: String):Integer;
     var
        newWp : pWord;
        givenWp : pWord;
@@ -67,7 +61,7 @@
       result := 1; {it worked}
     end;
 
-    function TExprLexer.lookupWord(word: String):TState;
+    function TExprLexer.lookupWord(word: String):Integer;
     var
       wp : TWord;
     begin
@@ -83,7 +77,7 @@
         if wp.next=nil then break;
         wp := wp.next^;
       end;
-      result := TState.LOOKUP;
+      result := LOOKUP;
     end;
 
     constructor TExprParser.Create;
