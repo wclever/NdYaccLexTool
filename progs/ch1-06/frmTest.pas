@@ -16,11 +16,9 @@ type
     Memo1: TMemo;
     Button1: TButton;
     OpenDialog1: TOpenDialog;
-    Edit1: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
-    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     Parser: TExprParser;
@@ -40,7 +38,6 @@ procedure TForm1.Button1Click(Sender: TObject);
 var
   StrStream: TFileStream;
 begin
-  OpenDialog1.InitialDir := ExtractFilePath(Application.ExeName);
   if OpenDialog1.Execute then
   begin
     Memo1.clear;
@@ -58,37 +55,6 @@ begin
     end;
   end;
 end;
-
-procedure TForm1.Edit1KeyPress(Sender: TObject; var Key: Char);
-var
-  StrStream: TStringStream;
-begin
-  if Key = #13 then
-  begin
-    Key := #0;
-    Memo1.Lines.Add('> ' + Edit1.Text);
-
-    {$IFDEF FPC}
-    StrStream := TStringStream.Create('');
-    {$ELSE}
-    StrStream := TStringStream.Create;
-    {$ENDIF}
-    try
-      StrStream.WriteString(Edit1.Text);
-      StrStream.Position := 0;
-      try
-        Parser.parse(StrStream, WriteCB);
-      except
-        on E: EExprParserException do
-          Memo1.Lines.Add(E.Message);
-      end;
-      Edit1.Text := '';
-    finally
-      StrStream.Free;
-    end;
-  end;
-end;
-
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
