@@ -234,6 +234,14 @@ object MainForm: TMainForm
     TabOrder = 21
     OnClick = commandlineQuotesCheckBoxClick
   end
+  object copyCheckBox: TCheckBox
+    Left = 184
+    Top = 280
+    Width = 193
+    Height = 17
+    Caption = 'Do copy Delphi-form/project -files'
+    TabOrder = 22
+  end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
     Title = 'NDYaccLex Directory'

@@ -31,6 +31,7 @@ type
     optimizeCheckBox: TCheckBox;
     SaveSettingsBitBtn: TBitBtn;
     commandlineQuotesCheckBox: TCheckBox;
+    copyCheckBox: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -269,9 +270,12 @@ begin
   //check if all needed files exist
   if checkDirectory(NDYaccLexDirectoryEdit.Text)=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\default.y')=1 then exit;
-  if checkFile(NDYaccLexDirectoryEdit.Text+'\test.dpr')=1 then exit;
-  if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm')=1 then exit;
-  if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.pas')=1 then exit;
+  if copyCheckBox.Checked then
+  begin
+    if checkFile(NDYaccLexDirectoryEdit.Text+'\test.dpr')=1 then exit;
+    if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm')=1 then exit;
+    if checkFile(NDYaccLexDirectoryEdit.Text+'\frmTest.pas')=1 then exit;
+  end;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndlex.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
   FileCopy(OutputProjectDirectoryEdit.Text+'\yyparse.cod', NDYaccLexDirectoryEdit.Text+'\yyparse.cod');
@@ -286,9 +290,12 @@ begin
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('copying projectfiles');
-  FileCopy(NDYaccLexDirectoryEdit.Text+'\test.dpr', OutputProjectDirectoryEdit.Text+'\test.dpr');
-  FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm', OutputProjectDirectoryEdit.Text+'\frmTest.dfm');
-  FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.pas', OutputProjectDirectoryEdit.Text+'\frmTest.pas');
+  if copyCheckBox.Checked then
+  begin
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\test.dpr', OutputProjectDirectoryEdit.Text+'\test.dpr');
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.dfm', OutputProjectDirectoryEdit.Text+'\frmTest.dfm');
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\frmTest.pas', OutputProjectDirectoryEdit.Text+'\frmTest.pas');
+  end;
   FileCopy(lexlibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(lexlibLocationEdit.Text));
   FileCopy(yacclibLocationEdit.Text, OutputProjectDirectoryEdit.Text+'\'+ExtractFileName(yacclibLocationEdit.Text));
 

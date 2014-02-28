@@ -12,7 +12,7 @@
 
 function TExprLexer.parse() : integer;
 
-function yyaction ( yyruleno : Integer );
+function yyaction ( yyruleno : Integer ):Integer;
   (* local definitions: *)
 
 begin
