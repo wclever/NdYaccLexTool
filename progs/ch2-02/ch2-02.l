@@ -1,13 +1,16 @@
 %{
-unsigned charCount = 0, wordCount = 0, lineCount = 0;
+	var
+		charCount : Integer = 0;
+		wordCount : Integer = 0;
+		lineCount : Integer = 0;
 %}
 
 word [^ \t\n]+
 eol  \n
 %%
-{word}	{ wordCount++; charCount += yyleng; }
-{eol}	{ charCount++; lineCount++; }
-.	charCount++;
+{word}	begin Inc(wordCount); charCount := charCount + yyleng; end;
+{eol}	begin Inc(charCount); Inc(lineCount); end;
+.	Inc(charCount);
 %%
 main(argc,argv)
 int argc;
