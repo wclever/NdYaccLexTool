@@ -16,16 +16,15 @@
  	lexlib,
         uStreamLexer;
         
-            const
-	    NOUN = 257;
-	    PRONOUN = 258;
-	    VERB = 259;
-	    ADVERB = 260;
-	    ADJECTIVE = 261;
-	    PREPOSITION = 262;
-	    CONJUNCTION = 263;
-	    LOOKUP = 0;
+            
 
+const NOUN = 257;
+const PRONOUN = 258;
+const VERB = 259;
+const ADVERB = 260;
+const ADJECTIVE = 261;
+const PREPOSITION = 262;
+const CONJUNCTION = 263;
 type YYSType = Integer(*YYSType*);
 // source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
     var yylval : YYSType;
@@ -68,47 +67,6 @@ type YYSType = Integer(*YYSType*);
     var wordList : TWord;
 
 
-    function TExprLexer.addWord(_type:Integer; word: String):Integer;
-    var
-       newWp : pWord;
-       givenWp : pWord;
-    begin
-      if lookupWord(word) <> LOOKUP then
-      begin
-        writecallback('warning: word '+word+' already defined');
-        result := 0;
-        exit;
-      end;
-      {/* word not there, allocate a new entry and link it on the list */}
-
-      new(newWp);
-      givenWp := Addr(wordList);
-      newWp^.next := givenWp^.next;
-      newWp^.wordName:= word;
-      newWp^.wordType := _type;
-      givenWp^.next := newWp;
-      result := 1; {it worked}
-    end;
-
-    function TExprLexer.lookupWord(word: String):Integer;
-    var
-      wp : TWord;
-    begin
-      wp := wordList;
-      {/* search down the list looking for the word */}
-      while true do
-      begin
-        if wp.wordName=word then
-        begin
-          result := wp.wordType;
-          exit;
-        end;
-        if wp.next=nil then break;
-        wp := wp.next^;
-      end;
-      result := LOOKUP;
-    end;
-
     constructor TExprParser.Create;
     var
       I: Integer;
@@ -147,16 +105,16 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 122
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 81
 begin
   (* actions: *)
   case yyruleno of
 1 : begin
-         // source: ch1-06.y line#31
+         // source: ch1-06.y line#23
          writecallback('Parsed a simple sentence.'); 
        end;
 2 : begin
-         // source: ch1-06.y line#32
+         // source: ch1-06.y line#24
          writecallback('Parsed a compound sentence.'); 
        end;
 3 : begin
@@ -198,7 +156,7 @@ begin
 15 : begin
          yyval := yyv[yysp-1];
        end;
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 126
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 85
   end;
 end(*yyaction*);
 
@@ -217,102 +175,106 @@ type YYARec = record
 
 const
 
-yynacts   = 1;
-yyngotos  = 37;
+yynacts   = 29;
+yyngotos  = 13;
 yynstates = 25;
 yynrules  = 15;
-yymaxtoken = 256;
+yymaxtoken = 263;
 
 yya : array [1..yynacts] of YYARec = (
 { 0: }
+  ( sym: 257; act: 5 ),
+  ( sym: 258; act: 6 ),
+  ( sym: 261; act: 7 ),
 { 1: }
+  ( sym: 259; act: 9 ),
+  ( sym: 260; act: 10 ),
 { 2: }
+  ( sym: 263; act: 11 ),
+  ( sym: 0; act: -2 ),
 { 3: }
+  ( sym: 263; act: 12 ),
+  ( sym: 0; act: -1 ),
 { 4: }
+  ( sym: 0; act: 0 ),
 { 5: }
 { 6: }
 { 7: }
-  ( sym: 0; act: 0 )
+  ( sym: 257; act: 5 ),
+  ( sym: 258; act: 6 ),
+  ( sym: 261; act: 7 ),
 { 8: }
+  ( sym: 257; act: 15 ),
+  ( sym: 259; act: 16 ),
+  ( sym: 261; act: 17 ),
 { 9: }
 { 10: }
+  ( sym: 259; act: 18 ),
 { 11: }
+  ( sym: 257; act: 5 ),
+  ( sym: 258; act: 6 ),
+  ( sym: 261; act: 7 ),
 { 12: }
+  ( sym: 257; act: 5 ),
+  ( sym: 258; act: 6 ),
+  ( sym: 261; act: 7 ),
 { 13: }
 { 14: }
+  ( sym: 262; act: 22 ),
+  ( sym: 0; act: -3 ),
+  ( sym: 263; act: -3 ),
 { 15: }
 { 16: }
 { 17: }
+  ( sym: 257; act: 15 ),
+  ( sym: 261; act: 17 ),
 { 18: }
 { 19: }
 { 20: }
 { 21: }
 { 22: }
+  ( sym: 257; act: 24 )
 { 23: }
 { 24: }
 );
 
 yyg : array [1..yyngotos] of YYARec = (
 { 0: }
-  ( sym: -12; act: 1 ),
-  ( sym: -11; act: 2 ),
-  ( sym: -10; act: 3 ),
-  ( sym: -5; act: 4 ),
-  ( sym: -4; act: 5 ),
-  ( sym: -3; act: 6 ),
-  ( sym: -2; act: 7 ),
+  ( sym: -5; act: 1 ),
+  ( sym: -4; act: 2 ),
+  ( sym: -3; act: 3 ),
+  ( sym: -2; act: 4 ),
 { 1: }
-  ( sym: -12; act: 1 ),
-  ( sym: -11; act: 2 ),
-  ( sym: -10; act: 3 ),
-  ( sym: -5; act: 8 ),
+  ( sym: -6; act: 8 ),
 { 2: }
 { 3: }
 { 4: }
-  ( sym: -14; act: 9 ),
-  ( sym: -13; act: 10 ),
-  ( sym: -6; act: 11 ),
 { 5: }
-  ( sym: -9; act: 12 ),
 { 6: }
-  ( sym: -9; act: 13 ),
 { 7: }
+  ( sym: -5; act: 13 ),
 { 8: }
+  ( sym: -7; act: 14 ),
 { 9: }
-  ( sym: -13; act: 14 ),
 { 10: }
 { 11: }
-  ( sym: -13; act: 15 ),
-  ( sym: -12; act: 16 ),
-  ( sym: -10; act: 17 ),
-  ( sym: -7; act: 18 ),
-{ 12: }
-  ( sym: -12; act: 1 ),
-  ( sym: -11; act: 2 ),
-  ( sym: -10; act: 3 ),
-  ( sym: -5; act: 4 ),
+  ( sym: -5; act: 1 ),
   ( sym: -3; act: 19 ),
-{ 13: }
-  ( sym: -12; act: 1 ),
-  ( sym: -11; act: 2 ),
-  ( sym: -10; act: 3 ),
-  ( sym: -5; act: 4 ),
+{ 12: }
+  ( sym: -5; act: 1 ),
   ( sym: -3; act: 20 ),
+{ 13: }
 { 14: }
+  ( sym: -8; act: 21 ),
 { 15: }
 { 16: }
-  ( sym: -12; act: 16 ),
-  ( sym: -10; act: 17 ),
-  ( sym: -7; act: 21 ),
 { 17: }
+  ( sym: -7; act: 23 )
 { 18: }
-  ( sym: -15; act: 22 ),
-  ( sym: -8; act: 23 ),
 { 19: }
 { 20: }
 { 21: }
 { 22: }
-  ( sym: -10; act: 24 )
 { 23: }
 { 24: }
 );
@@ -323,138 +285,138 @@ yyd : array [0..yynstates-1] of Integer = (
 { 2: } 0,
 { 3: } 0,
 { 4: } 0,
-{ 5: } -2,
-{ 6: } -1,
+{ 5: } -7,
+{ 6: } -8,
 { 7: } 0,
 { 8: } 0,
-{ 9: } 0,
+{ 9: } -10,
 { 10: } 0,
 { 11: } 0,
 { 12: } 0,
-{ 13: } 0,
+{ 13: } -9,
 { 14: } 0,
-{ 15: } 0,
-{ 16: } 0,
-{ 17: } -13,
-{ 18: } -3,
+{ 15: } -13,
+{ 16: } -12,
+{ 17: } 0,
+{ 18: } -11,
 { 19: } -6,
 { 20: } -5,
-{ 21: } -14,
+{ 21: } -4,
 { 22: } 0,
-{ 23: } -4,
+{ 23: } -14,
 { 24: } -15
 );
 
 yyal : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 1,
-{ 2: } 1,
-{ 3: } 1,
-{ 4: } 1,
-{ 5: } 1,
-{ 6: } 1,
-{ 7: } 1,
-{ 8: } 2,
-{ 9: } 2,
-{ 10: } 2,
-{ 11: } 2,
-{ 12: } 2,
-{ 13: } 2,
-{ 14: } 2,
-{ 15: } 2,
-{ 16: } 2,
-{ 17: } 2,
-{ 18: } 2,
-{ 19: } 2,
-{ 20: } 2,
-{ 21: } 2,
-{ 22: } 2,
-{ 23: } 2,
-{ 24: } 2
+{ 1: } 4,
+{ 2: } 6,
+{ 3: } 8,
+{ 4: } 10,
+{ 5: } 11,
+{ 6: } 11,
+{ 7: } 11,
+{ 8: } 14,
+{ 9: } 17,
+{ 10: } 17,
+{ 11: } 18,
+{ 12: } 21,
+{ 13: } 24,
+{ 14: } 24,
+{ 15: } 27,
+{ 16: } 27,
+{ 17: } 27,
+{ 18: } 29,
+{ 19: } 29,
+{ 20: } 29,
+{ 21: } 29,
+{ 22: } 29,
+{ 23: } 30,
+{ 24: } 30
 );
 
 yyah : array [0..yynstates-1] of Integer = (
-{ 0: } 0,
-{ 1: } 0,
-{ 2: } 0,
-{ 3: } 0,
-{ 4: } 0,
-{ 5: } 0,
-{ 6: } 0,
-{ 7: } 1,
-{ 8: } 1,
-{ 9: } 1,
-{ 10: } 1,
-{ 11: } 1,
-{ 12: } 1,
-{ 13: } 1,
-{ 14: } 1,
-{ 15: } 1,
-{ 16: } 1,
-{ 17: } 1,
-{ 18: } 1,
-{ 19: } 1,
-{ 20: } 1,
-{ 21: } 1,
-{ 22: } 1,
-{ 23: } 1,
-{ 24: } 1
+{ 0: } 3,
+{ 1: } 5,
+{ 2: } 7,
+{ 3: } 9,
+{ 4: } 10,
+{ 5: } 10,
+{ 6: } 10,
+{ 7: } 13,
+{ 8: } 16,
+{ 9: } 16,
+{ 10: } 17,
+{ 11: } 20,
+{ 12: } 23,
+{ 13: } 23,
+{ 14: } 26,
+{ 15: } 26,
+{ 16: } 26,
+{ 17: } 28,
+{ 18: } 28,
+{ 19: } 28,
+{ 20: } 28,
+{ 21: } 28,
+{ 22: } 29,
+{ 23: } 29,
+{ 24: } 29
 );
 
 yygl : array [0..yynstates-1] of Integer = (
 { 0: } 1,
-{ 1: } 8,
-{ 2: } 12,
-{ 3: } 12,
-{ 4: } 12,
-{ 5: } 15,
-{ 6: } 16,
-{ 7: } 17,
-{ 8: } 17,
-{ 9: } 17,
-{ 10: } 18,
-{ 11: } 18,
-{ 12: } 22,
-{ 13: } 27,
-{ 14: } 32,
-{ 15: } 32,
-{ 16: } 32,
-{ 17: } 35,
-{ 18: } 35,
-{ 19: } 37,
-{ 20: } 37,
-{ 21: } 37,
-{ 22: } 37,
-{ 23: } 38,
-{ 24: } 38
+{ 1: } 5,
+{ 2: } 6,
+{ 3: } 6,
+{ 4: } 6,
+{ 5: } 6,
+{ 6: } 6,
+{ 7: } 6,
+{ 8: } 7,
+{ 9: } 8,
+{ 10: } 8,
+{ 11: } 8,
+{ 12: } 10,
+{ 13: } 12,
+{ 14: } 12,
+{ 15: } 13,
+{ 16: } 13,
+{ 17: } 13,
+{ 18: } 14,
+{ 19: } 14,
+{ 20: } 14,
+{ 21: } 14,
+{ 22: } 14,
+{ 23: } 14,
+{ 24: } 14
 );
 
 yygh : array [0..yynstates-1] of Integer = (
-{ 0: } 7,
-{ 1: } 11,
-{ 2: } 11,
-{ 3: } 11,
-{ 4: } 14,
-{ 5: } 15,
-{ 6: } 16,
-{ 7: } 16,
-{ 8: } 16,
-{ 9: } 17,
-{ 10: } 17,
-{ 11: } 21,
-{ 12: } 26,
-{ 13: } 31,
-{ 14: } 31,
-{ 15: } 31,
-{ 16: } 34,
-{ 17: } 34,
-{ 18: } 36,
-{ 19: } 36,
-{ 20: } 36,
-{ 21: } 36,
-{ 22: } 37,
-{ 23: } 37,
-{ 24: } 37
+{ 0: } 4,
+{ 1: } 5,
+{ 2: } 5,
+{ 3: } 5,
+{ 4: } 5,
+{ 5: } 5,
+{ 6: } 5,
+{ 7: } 6,
+{ 8: } 7,
+{ 9: } 7,
+{ 10: } 7,
+{ 11: } 9,
+{ 12: } 11,
+{ 13: } 11,
+{ 14: } 12,
+{ 15: } 12,
+{ 16: } 12,
+{ 17: } 13,
+{ 18: } 13,
+{ 19: } 13,
+{ 20: } 13,
+{ 21: } 13,
+{ 22: } 13,
+{ 23: } 13,
+{ 24: } 13
 );
 
 yyr : array [1..yynrules] of YYRRec = (
@@ -476,10 +438,17 @@ yyr : array [1..yynrules] of YYRRec = (
 );
 
 yytokens : array [256..yymaxtoken] of YYTokenRec = (
-{ 256: } ( tokenname: 'error' )
+{ 256: } ( tokenname: 'error' ),
+{ 257: } ( tokenname: 'NOUN' ),
+{ 258: } ( tokenname: 'PRONOUN' ),
+{ 259: } ( tokenname: 'VERB' ),
+{ 260: } ( tokenname: 'ADVERB' ),
+{ 261: } ( tokenname: 'ADJECTIVE' ),
+{ 262: } ( tokenname: 'PREPOSITION' ),
+{ 263: } ( tokenname: 'CONJUNCTION' )
 );
 
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 131
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 90
 
 const _error = 256; (* error token *)
 

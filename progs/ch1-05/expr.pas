@@ -24,7 +24,7 @@ const ADJECTIVE = 261;
 const PREPOSITION = 262;
 const CONJUNCTION = 263;
 type YYSType = Integer(*YYSType*);
-// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 2
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
     var yylval : YYSType;
     
 
@@ -104,7 +104,7 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 82
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 82
 begin
   (* actions: *)
   case yyruleno of
@@ -121,7 +121,7 @@ begin
 4 : begin
          yyval := yyv[yysp-0];
        end;
-// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 86
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 86
   end;
 end(*yyaction*);
 
@@ -249,7 +249,7 @@ yytokens : array [256..yymaxtoken] of YYTokenRec = (
 { 263: } ( tokenname: 'CONJUNCTION' )
 );
 
-// source: C:\Users\verhees\Documents\RAD Studio\NdYaccLexTool\tools\yyparse.cod line# 91
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 91
 
 const _error = 256; (* error token *)
 

@@ -19,6 +19,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     Parser: TExprParser;
@@ -38,6 +39,7 @@ procedure TForm1.Button1Click(Sender: TObject);
 var
   StrStream: TFileStream;
 begin
+  OpenDialog1.InitialDir := ExtractFilePath(Application.ExeName);
   if OpenDialog1.Execute then
   begin
     Memo1.clear;

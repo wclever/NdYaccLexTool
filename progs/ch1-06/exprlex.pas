@@ -7,6 +7,7 @@
 //#define LOOKUP 0 /* default - not a defined word type. */
 
 //int state; 
+const LOOKUP = 0;
 
 
 
@@ -14,7 +15,6 @@ function TExprLexer.parse() : integer;
 
 function yyaction ( yyruleno : Integer ):Integer;
   (* local definitions: *)
-
 begin
   (* actions: *)
   case yyruleno of
@@ -53,13 +53,13 @@ begin
 	     else
 	     begin
 		case lookupWord(yytext) of
-			VERB: result := VERB;
-			ADJECTIVE: result := ADJECTIVE;
-			ADVERB: result := ADVERB;
-			NOUN: result := NOUN;
-			PREPOSITION:  result := PREPOSITION;
-			PRONOUN: result := PRONOUN;
-			CONJUNCTION: result := CONJUNCTION;
+			VERB: return( VERB);
+			ADJECTIVE: return( ADJECTIVE);
+			ADVERB: return( ADVERB);
+			NOUN: return( NOUN);
+			PREPOSITION:  return( PREPOSITION);
+			PRONOUN: return( PRONOUN);
+			CONJUNCTION: return( CONJUNCTION);
 		else
 		  writecallback(yytext+':  dont recognize');
 		  //* don't return, just ignore it */
@@ -582,3 +582,43 @@ action:
 end(*yylex*);
 
 
+function TExprLexer.addWord(_type:Integer; word: String):Integer;
+    var
+       newWp : pWord;
+       givenWp : pWord;
+    begin
+      if lookupWord(word) <> LOOKUP then
+      begin
+        writecallback('warning: word '+word+' already defined');
+        result := 0;
+        exit;
+      end;
+      {/* word not there, allocate a new entry and link it on the list */}
+
+      new(newWp);
+      givenWp := Addr(wordList);
+      newWp^.next := givenWp^.next;
+      newWp^.wordName:= word;
+      newWp^.wordType := _type;
+      givenWp^.next := newWp;
+      result := 1; {it worked}
+    end;
+
+    function TExprLexer.lookupWord(word: String):Integer;
+    var
+      wp : TWord;
+    begin
+      wp := wordList;
+      {/* search down the list looking for the word */}
+      while true do
+      begin
+        if wp.wordName=word then
+        begin
+          result := wp.wordType;
+          exit;
+        end;
+        if wp.next=nil then break;
+        wp := wp.next^;
+      end;
+      result := LOOKUP;
+    end;
