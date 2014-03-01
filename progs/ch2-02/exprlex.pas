@@ -12,7 +12,7 @@ begin
   (* actions: *)
   case yyruleno of
   1:
-      	begin Inc(wordCount); charCount := charCount + yyleng; end;
+      	begin Inc(wordCount); charCount := charCount + yysleng; end;
   2:
      	begin Inc(charCount); Inc(lineCount); end;
   3:
@@ -190,26 +190,10 @@ action:
   if not yydone then goto start;
 
   Result := yyretval;
-
+  writecallback(  'charCount: ' + IntToStr(charCount) +
+                  ' wordCount: ' + IntToStr(wordCount)  +
+                  ' lineCount: ' + IntToStr(lineCount));
 end(*yylex*);
 
 
-main(argc,argv)
-int argc;
-char **argv;
-{
 
-	if (argc > 1) {
-		FILE *file;
-
-		file = fopen(argv[1], "r");
-		if (!file) {
-			fprintf(stderr,"could not open %s\n",argv[1]);
-			exit(1);
-		}
-		yyin = file;
-	}
-	yylex();
-	printf("%d %d %d\n",charCount, wordCount, lineCount);
-	return 0;
-}

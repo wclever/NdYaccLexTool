@@ -14,10 +14,11 @@ uses
 type
   TForm1 = class(TForm)
     Memo1: TMemo;
-    Edit1: TEdit;
-    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    Button1: TButton;
+    OpenDialog1: TOpenDialog;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     Parser: TExprParser;
@@ -33,32 +34,25 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Edit1KeyPress(Sender: TObject; var Key: Char);
+procedure TForm1.Button1Click(Sender: TObject);
 var
-  StrStream: TStringStream;
+  StrStream: TFileStream;
 begin
-  if Key = #13 then
+  OpenDialog1.InitialDir := ExtractFilePath(Application.ExeName);
+  if OpenDialog1.Execute then
   begin
-    Key := #0;
-    Memo1.Lines.Add('> ' + Edit1.Text);
-
-    {$IFDEF FPC}
-    StrStream := TStringStream.Create('');
-    {$ELSE}
-    StrStream := TStringStream.Create;
-    {$ENDIF}
+    Memo1.clear;
+    Memo1.Lines.Add('> ' + OpenDialog1.FileName);
+    StrStream := TFileStream.Create(OpenDialog1.FileName, fmOpenRead);
     try
-      StrStream.WriteString(Edit1.Text);
-      StrStream.Position := 0;
       try
         Parser.parse(StrStream, WriteCB);
       except
         on E: EExprParserException do
           Memo1.Lines.Add(E.Message);
       end;
-      Edit1.Text := '';
     finally
-      StrStream.Free;
+       StrStream.Free;
     end;
   end;
 end;
