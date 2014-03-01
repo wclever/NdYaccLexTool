@@ -10,10 +10,10 @@ begin
        	;
 
   2:
-                                                { printf("number\n"); }
+                                                writecallback('number');
 
   3:
- 	ECHO;
+ 	writecallback('yytest');
   end;
 end(*yyaction*);
 
