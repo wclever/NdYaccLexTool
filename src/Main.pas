@@ -355,6 +355,9 @@ begin
 
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('Finished, see messages.');
+
+  copyCODCheckBox.Checked := False;
+  copyCheckBox.Checked := False;
 end;
 
 procedure TMainForm.debugInfoCheckBoxClick(Sender: TObject);
