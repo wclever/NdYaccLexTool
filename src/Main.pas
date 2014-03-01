@@ -32,6 +32,7 @@ type
     SaveSettingsBitBtn: TBitBtn;
     commandlineQuotesCheckBox: TCheckBox;
     copyCheckBox: TCheckBox;
+    copyCODCheckBox: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure OutputProjectDirectoryBitBtnClick(Sender: TObject);
     procedure NDYaccLexExecutableDirectoryBitBtnClick(Sender: TObject);
@@ -278,8 +279,11 @@ begin
   end;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndlex.exe')=1 then exit;
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
-  FileCopy(OutputProjectDirectoryEdit.Text+'\yyparse.cod', NDYaccLexDirectoryEdit.Text+'\yyparse.cod');
-  FileCopy(OutputProjectDirectoryEdit.Text+'\yylex.cod', NDYaccLexDirectoryEdit.Text+'\yylex.cod');
+  if copyCODCheckBox.Checked then
+  begin
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\yyparse.cod',OutputProjectDirectoryEdit.Text+'\yyparse.cod');
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\yylex.cod', OutputProjectDirectoryEdit.Text+'\yylex.cod' );
+  end;
   OutputMemo.Lines.Add('');
   if checkFile(lexlibLocationEdit.Text)=1 then exit;
   if checkFile(yacclibLocationEdit.Text)=1 then exit;
@@ -384,11 +388,7 @@ begin
   NDYaccLexDirectoryEdit.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
   NDYaccLexDirectoryBitBtn.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
   uStreamLexerLocationEdit.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
-  lexlibLocationEdit.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
-  yacclibLocationEdit.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
   uStreamLexerLocationBitBtn.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
-  lexlibLocationBitBtn.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
-  yacclibLocationBitBtn.Enabled := EnableNDYaccLexDirectoryControlCheckBox.Checked;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);

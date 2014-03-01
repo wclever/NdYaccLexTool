@@ -109,7 +109,7 @@ object MainForm: TMainForm
   end
   object lexlibLocationEdit: TEdit
     Left = 8
-    Top = 94
+    Top = 93
     Width = 450
     Height = 21
     Enabled = False
@@ -237,10 +237,18 @@ object MainForm: TMainForm
   object copyCheckBox: TCheckBox
     Left = 184
     Top = 280
-    Width = 193
+    Width = 209
     Height = 17
     Caption = 'Do copy Delphi-form/project -files'
     TabOrder = 22
+  end
+  object copyCODCheckBox: TCheckBox
+    Left = 399
+    Top = 281
+    Width = 202
+    Height = 17
+    Caption = 'Copy default COD (code-templates)'
+    TabOrder = 23
   end
   object OpenDialog: TOpenDialog
     Filter = '*.pas|*.pas'
