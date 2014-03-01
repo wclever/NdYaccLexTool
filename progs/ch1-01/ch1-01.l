@@ -1,3 +1,3 @@
 %%
-.|\n		writecallback(yytest);
+.|\n		writecallback(yytext);
 %%

@@ -7,7 +7,7 @@ begin
   (* actions: *)
   case yyruleno of
   1:
-    		writecallback(yytest);
+    		writecallback(yytext);
   end;
 end(*yyaction*);
 

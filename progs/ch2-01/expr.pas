@@ -16,72 +16,37 @@ uses
 
 type YYSType = Integer(*YYSType*);
 // source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 2
-    var yylval : YYSType;
-    
 
+var yylval : YYSType;
 
-    type
+type
+  TWriteCallback = procedure(Value: String) of object;
+  TExprLexer = class(TStreamLexer)
+  public
+    writecallback: TWriteCallback;
+    function parse() : integer; override;
+  end;
 
-      pWord = ^TWord;
+  EExprParserException = class(Exception);
+  TExprParser = class(TCustomParser)
+  private
+    x: array [1..26] of Real;
+    writecallback: TWriteCallback;
+  public
+    constructor Create;
+    function parse(AStream: TStream; AWriteCB: TWriteCallback) : integer; reintroduce;
+  end;
 
-      TWord = record
-        wordName : String[100];
-        wordType : Integer;
-        next : pWord;
-      end;
+implementation
 
-      TWriteCallback = procedure(Value: String) of object;
-      TExprLexer = class(TStreamLexer)
-      public
-        writecallback: TWriteCallback;
-        state: Integer;
-        function Parse() : integer; override;
-        function addWord(_type:Integer; word: String):Integer;
-        function lookupWord(word: String):Integer;
-      end;
-
-      EExprParserException = class(Exception);
-      TExprParser = class(TCustomParser)
-      private
-        x: array [1..26] of Real;
-        writecallback: TWriteCallback;
-      public
-        constructor Create;
-        destructor Destroy;  override;
-        function parse(AStream: TStream; AWriteCB: TWriteCallback) : integer; reintroduce;
-      end;
-
-    implementation
-
-    var wordList : TWord;
-
-
-    constructor TExprParser.Create;
-    var
-      I: Integer;
-    begin
-      inherited;
-      for i := 1 to 26 do
-        x[i] := 0.0;
-    end;
-
-    destructor TExprParser.Destroy;
-    var
-      wordPtr : pWord;
-      procedure recurse(wordPtr : pWord);
-      begin
-        if wordPtr^.next<>nil then
-        begin
-           recurse(wordPtr^.next);
-        end;
-        Dispose(wordPtr);
-      end;
-    begin
-      inherited Destroy;
-      wordPtr := Addr(wordList );
-      if wordPtr^.next=nil then exit;
-      recurse(wordPtr^.next);
-    end;
+constructor TExprParser.Create;
+var
+  I: Integer;
+begin
+  inherited;
+  for i := 1 to 26 do 
+    x[i] := 0.0;
+end;
 
 function TExprParser.parse(AStream: TStream; AWriteCB: TWriteCallback) : integer;
 
@@ -94,7 +59,7 @@ var
 
 procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 81
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 46
 begin
   (* actions: *)
   case yyruleno of
@@ -102,7 +67,7 @@ begin
        end;
 2 : begin
        end;
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 85
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 50
   end;
 end(*yyaction*);
 
@@ -173,7 +138,7 @@ yytokens : array [256..yymaxtoken] of YYTokenRec = (
 { 256: } ( tokenname: 'error' )
 );
 
-// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 90
+// source: D:\Users\verhees\Documents\GitHub\NdYaccLexTool\tools\yyparse.cod line# 55
 
 const _error = 256; (* error token *)
 

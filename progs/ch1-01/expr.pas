@@ -246,7 +246,7 @@ next:
       yychar := lexer.parse(); if yychar<0 then yychar := 0;
     end;
 
-  {$IFDEF YYDEBUG}writeln('state ', yystate, yycharsym(yychar));{$ENDIF}
+  {$IFDEF YYDEBUG}writecallback('**** state '+ IntToStr(yystate) + ' ' + yycharsym(yychar));{$ENDIF}
 
   (* determine parse action: *)
 
@@ -279,10 +279,9 @@ errlab:
         begin
           {$IFDEF YYDEBUG}
             if yysp>1 then
-              writeln('error recovery pops state ', yys[yysp], ', uncovers ',
-                      yys[yysp-1])
+              writecallback('**** error recovery pops state ' + IntToStr(yys[yysp]) + ', uncovers ' + IntToStr(yys[yysp-1]) )
             else
-              writeln('error recovery fails ... abort');
+              writecallback('**** error recovery fails ... abort');
           {$ENDIF}
           dec(yysp);
         end;
@@ -292,7 +291,7 @@ errlab:
     end
   else                                  (* no shift yet; discard symbol *)
     begin
-      {$IFDEF YYDEBUG}writeln('error recovery discards ' + yycharsym(yychar));{$ENDIF}
+      {$IFDEF YYDEBUG}writecallback('**** error recovery discards ' + yycharsym(yychar));{$ENDIF}
       if yychar=0 then goto abort; (* end of input; abort *)
       yychar := -1; goto next;     (* clear lookahead char and try again *)
     end;
@@ -310,7 +309,7 @@ reduce:
 
   (* execute action, pop rule from stack, and go to next state: *)
 
-  {$IFDEF YYDEBUG}writeln('reduce ' + IntToStr(-yyn) {$IFDEF YYEXTRADEBUG} + ' rule ' + yyr[-yyn].symname {$ENDIF});{$ENDIF}
+  {$IFDEF YYDEBUG}writecallback('**** reduce ' + IntToStr(-yyn) {$IFDEF YYEXTRADEBUG} + ' rule ' + yyr[-yyn].symname {$ENDIF});{$ENDIF}
 
   yyflag := yyfnone; yyaction(-yyn);
   dec(yysp, yyr[-yyn].len);

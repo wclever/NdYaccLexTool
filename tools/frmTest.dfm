@@ -29,11 +29,8 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     ReadOnly = True
+    ScrollBars = ssVertical
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
-    ExplicitWidth = 185
-    ExplicitHeight = 89
   end
   object Edit1: TEdit
     Left = 0
@@ -43,6 +40,5 @@ object Form1: TForm1
     Align = alBottom
     TabOrder = 0
     OnKeyPress = Edit1KeyPress
-    ExplicitTop = 285
   end
 end

@@ -1,7 +1,7 @@
 
 function TExprLexer.parse() : integer;
 
-function yyaction ( yyruleno : Integer ):Integer;
+procedure yyaction ( yyruleno : Integer );
   (* local definitions: *)
 begin
   (* actions: *)
@@ -10,10 +10,10 @@ begin
        	;
 
   2:
-                                                writecallback('number');
+                                                writecallback(yytext+': number');
 
   3:
- 	writecallback('yytest');
+ 	writecallback(yytext+': not a number');
   end;
 end(*yyaction*);
 

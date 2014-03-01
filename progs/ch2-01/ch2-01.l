@@ -1,7 +1,7 @@
 %%
 [\n\t ]	;
 
--?(([0-9]+)|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) writecallback('number');
+-?(([0-9]+)|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) writecallback(yytext+': number');
 
-.	writecallback(yytest);
+.	writecallback(yytext+': not a number');
 %%
