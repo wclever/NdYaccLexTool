@@ -5,7 +5,3 @@
 
 .	ECHO;
 %%
-main()
-{
-	yylex();
-}
