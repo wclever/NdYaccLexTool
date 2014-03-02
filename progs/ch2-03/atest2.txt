@@ -1,0 +1,5 @@
+verb is
+pron he
+noun fisher sailor
+conj and
+he is fisher and he is sailor

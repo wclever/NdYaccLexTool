@@ -45,6 +45,7 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object OpenDialog1: TOpenDialog
+    Options = [ofHideReadOnly, ofAllowMultiSelect, ofEnableSizing]
     Left = 152
     Top = 304
   end
