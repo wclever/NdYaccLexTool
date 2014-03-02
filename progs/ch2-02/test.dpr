@@ -2,14 +2,15 @@ program test;
 
 uses
   {$IFDEF FPC}
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
+  {$IFDEF UseCThreads}
   cthreads,
-  {$ENDIF}{$ENDIF}
-  Interfaces, // this includes the LCL widgetset
-  Forms,
+  {$ENDIF }
+  {$ENDIF }
+  Interfaces,
   {$ELSE}
   Vcl.Forms,
-  {$ENDIF}
+  {$ENDIF }
   frmTest in 'frmTest.pas' {Form1},
   expr in 'expr.pas',
   uStreamLexer in 'uStreamLexer.pas';
