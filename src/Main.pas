@@ -281,8 +281,8 @@ begin
   if checkFile(NDYaccLexDirectoryEdit.Text+'\ndyacc.exe')=1 then exit;
   if copyCODCheckBox.Checked then
   begin
-    FileCopy(NDYaccLexDirectoryEdit.Text+'\yyparse.cod',OutputProjectDirectoryEdit.Text+'\yyparse.cod');
-    FileCopy(NDYaccLexDirectoryEdit.Text+'\yylex.cod', OutputProjectDirectoryEdit.Text+'\yylex.cod' );
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\yyparse.org',OutputProjectDirectoryEdit.Text+'\yyparse.cod');
+    FileCopy(NDYaccLexDirectoryEdit.Text+'\yylex.org', OutputProjectDirectoryEdit.Text+'\yylex.cod' );
   end;
   OutputMemo.Lines.Add('');
   if checkFile(lexlibLocationEdit.Text)=1 then exit;
@@ -318,6 +318,10 @@ begin
   else  ndyaccParameter := ' -v ';
   if optimizeCheckbox.Checked then  ndlexParameter := ' -v -o '
   else  ndlexParameter := ' -v ';
+
+    FileCopy(OutputProjectDirectoryEdit.Text+'\yyparse.cod', NDYaccLexDirectoryEdit.Text+'\yyparse.cod');
+    FileCopy(OutputProjectDirectoryEdit.Text+'\yylex.cod', NDYaccLexDirectoryEdit.Text+'\yylex.cod' );
+
 
   OutputMemo.Lines.Add('');
   OutputMemo.Lines.Add('');

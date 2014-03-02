@@ -37,24 +37,32 @@ implementation
 procedure TForm1.Button1Click(Sender: TObject);
 var
   StrStream: TFileStream;
+  i : Integer;
 begin
   OpenDialog1.InitialDir := ExtractFilePath(Application.ExeName);
   if OpenDialog1.Execute then
   begin
     Memo1.clear;
-    Memo1.Lines.Add('> ' + OpenDialog1.FileName);
-    StrStream := TFileStream.Create(OpenDialog1.FileName, fmOpenRead);
-    try
+    for i := 0 to OpenDialog1.Files.Count-1 do
+    begin
+      Memo1.Lines.Add('> ' + OpenDialog1.Files[i]);
+      StrStream := TFileStream.Create(OpenDialog1.Files[i], fmOpenRead);
       try
-        Parser.parse(StrStream, WriteCB);
-      except
-        on E: EExprParserException do
-          Memo1.Lines.Add(E.Message);
+        try
+          Parser.parse(StrStream, WriteCB);
+        except
+          on E: EExprParserException do
+            Memo1.Lines.Add(E.Message);
+        end;
+      finally
+         StrStream.Free;
       end;
-    finally
-       StrStream.Free;
     end;
   end;
+    WriteCB(  'charCountT: ' + IntToStr(Parser.charCountT) +
+                  ' wordCountT: ' + IntToStr(Parser.wordCountT)  +
+                  ' lineCountT: ' + IntToStr(Parser.lineCountT));
+
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);

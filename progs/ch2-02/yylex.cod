@@ -71,6 +71,9 @@ action:
   if not yydone then goto start;
 
   Result := yyretval;
+  writecallback(  'charCount: ' + IntToStr(charCount) +
+                  ' wordCount: ' + IntToStr(wordCount)  +
+                  ' lineCount: ' + IntToStr(lineCount));
 
 end(*yylex*);
 

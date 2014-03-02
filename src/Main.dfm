@@ -173,7 +173,7 @@ object MainForm: TMainForm
   end
   object CreateBitBtn: TBitBtn
     Left = 8
-    Top = 246
+    Top = 249
     Width = 161
     Height = 25
     Caption = 'Create Delphi Test Project'
