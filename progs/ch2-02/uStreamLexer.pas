@@ -50,6 +50,11 @@ begin
   if (bufptr = 0) and (yyinput.Position < yyinput.Size) then
   begin
     yyline := ReadLnFromStream;
+    //dirty bugfix, strip the new line character because it will be added again three lines below
+    if yyline[Length(yyline)]=#10 then
+    begin
+      SetLength(yyline,Length(yyline)-1);
+    end;
 
     Inc(yylineno);
     yycolno := 1;

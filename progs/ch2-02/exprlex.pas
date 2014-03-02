@@ -12,7 +12,7 @@ begin
   (* actions: *)
   case yyruleno of
   1:
-      	begin Inc(wordCount); charCount := charCount + yysleng; end;
+      	begin Inc(wordCount); charCount := charCount + length(yytext); end;
   2:
      	begin Inc(charCount); Inc(lineCount); end;
   3:
