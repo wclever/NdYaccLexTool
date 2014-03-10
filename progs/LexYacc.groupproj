@@ -1,33 +1,33 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{5FA05B1E-451E-476C-A2E4-0440F0820866}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-01\ch1_01.dproj">
+        <Projects Include="ch1-01\ch1_01.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-02\ch1_02.dproj">
+        <Projects Include="ch1-02\ch1_02.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-03\ch1_03.dproj">
+        <Projects Include="ch1-03\ch1_03.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-04\ch1_04.dproj">
+        <Projects Include="ch1-04\ch1_04.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-05\ch1_05.dproj">
+        <Projects Include="ch1-05\ch1_05.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-06\ch1_06.dproj">
+        <Projects Include="ch1-06\ch1_06.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-01\ch2_01.dproj">
+        <Projects Include="ch2-01\ch2_01.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-02\ch2_02.dproj">
+        <Projects Include="ch2-02\ch2_02.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-03\ch2_03.dproj">
+        <Projects Include="ch2-03\ch2_03.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -39,85 +39,85 @@
         </BorlandProject>
     </ProjectExtensions>
     <Target Name="ch1_01">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-01\ch1_01.dproj"/>
+        <MSBuild Projects="ch1-01\ch1_01.dproj"/>
     </Target>
     <Target Name="ch1_01:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-01\ch1_01.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-01\ch1_01.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_01:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-01\ch1_01.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-01\ch1_01.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch1_02">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-02\ch1_02.dproj"/>
+        <MSBuild Projects="ch1-02\ch1_02.dproj"/>
     </Target>
     <Target Name="ch1_02:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-02\ch1_02.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-02\ch1_02.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_02:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-02\ch1_02.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-02\ch1_02.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch1_03">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-03\ch1_03.dproj"/>
+        <MSBuild Projects="ch1-03\ch1_03.dproj"/>
     </Target>
     <Target Name="ch1_03:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-03\ch1_03.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-03\ch1_03.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_03:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-03\ch1_03.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-03\ch1_03.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch1_04">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-04\ch1_04.dproj"/>
+        <MSBuild Projects="ch1-04\ch1_04.dproj"/>
     </Target>
     <Target Name="ch1_04:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-04\ch1_04.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-04\ch1_04.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_04:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-04\ch1_04.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-04\ch1_04.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch1_05">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-05\ch1_05.dproj"/>
+        <MSBuild Projects="ch1-05\ch1_05.dproj"/>
     </Target>
     <Target Name="ch1_05:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-05\ch1_05.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-05\ch1_05.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_05:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-05\ch1_05.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-05\ch1_05.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch1_06">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-06\ch1_06.dproj"/>
+        <MSBuild Projects="ch1-06\ch1_06.dproj"/>
     </Target>
     <Target Name="ch1_06:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-06\ch1_06.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch1-06\ch1_06.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch1_06:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch1-06\ch1_06.dproj" Targets="Make"/>
+        <MSBuild Projects="ch1-06\ch1_06.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch2_01">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-01\ch2_01.dproj"/>
+        <MSBuild Projects="ch2-01\ch2_01.dproj"/>
     </Target>
     <Target Name="ch2_01:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-01\ch2_01.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch2-01\ch2_01.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch2_01:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-01\ch2_01.dproj" Targets="Make"/>
+        <MSBuild Projects="ch2-01\ch2_01.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch2_02">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-02\ch2_02.dproj"/>
+        <MSBuild Projects="ch2-02\ch2_02.dproj"/>
     </Target>
     <Target Name="ch2_02:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-02\ch2_02.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch2-02\ch2_02.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch2_02:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-02\ch2_02.dproj" Targets="Make"/>
+        <MSBuild Projects="ch2-02\ch2_02.dproj" Targets="Make"/>
     </Target>
     <Target Name="ch2_03">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-03\ch2_03.dproj"/>
+        <MSBuild Projects="ch2-03\ch2_03.dproj"/>
     </Target>
     <Target Name="ch2_03:Clean">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-03\ch2_03.dproj" Targets="Clean"/>
+        <MSBuild Projects="ch2-03\ch2_03.dproj" Targets="Clean"/>
     </Target>
     <Target Name="ch2_03:Make">
-        <MSBuild Projects="..\..\..\..\GitHub\NdYaccLexTool\progs\ch2-03\ch2_03.dproj" Targets="Make"/>
+        <MSBuild Projects="ch2-03\ch2_03.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
         <CallTarget Targets="ch1_01;ch1_02;ch1_03;ch1_04;ch1_05;ch1_06;ch2_01;ch2_02;ch2_03"/>
