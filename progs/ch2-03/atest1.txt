@@ -1,4 +1,0 @@
-verb is
-pron he
-noun fisher
-he is fisher
